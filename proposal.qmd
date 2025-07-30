@@ -121,6 +121,9 @@ if callAPIbool == True:
 	callAPI()
 else: 
 	WeatherRaw = pd.read_csv("data/mn_weather_data.csv")
+	WeatherRaw.head()
+	WeatherRaw.info()
+	WeatherRaw.isna().sum()
 
 HistoricRaw = pd.read_csv("data/storm_data_search_results.csv")
 HistoricRaw.head()
@@ -132,7 +135,12 @@ HistoricRaw.isna().sum()
 ```
 
 A brief description of your dataset including its provenance, dimensions, etc. as well as the reason why you chose this dataset.
-
+'WeatherRaw.head()
+'WeatherRaw.info()
+'WeatherRaw.isna().sum()
+'HistoricRaw.head()
+'HistoricRaw.info()
+'HistoricRaw.isna().sum()
 Make sure to load the data and use inline code for some of this information.
 
 ## Questions
