@@ -1,11 +1,11 @@
 ---
-title: "Project Title"
+title: "Prediction of Tornado Occurance in the Twin Cities"
 subtitle: "INFO 523 - Final Project"
 author: 
-  - name: "Team name - Team member 1, Team member 2,..."
+  - name: "The Crengineers - Tyler Hart"
     affiliations:
-      - name: "College of Information Science, University of Arizona"
-description: "Project description"
+      - name: "College of Information Science, College of Systems and Industrial Engineering, University of Arizona"
+description: "TODO: An analysis of historical tornado patterns in the area of Twin Ciries from 2020-Current(2025) to predict Tornado Occurence"
 format:
    html:
     code-tools: true
@@ -20,4 +20,4 @@ jupyter: python3
 
 ## Abstract
 
-Add project abstract here.
+TODO: Add project abstract here.
