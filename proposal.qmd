@@ -5,7 +5,7 @@ author:
   - name: "The Crengineers - Tyler Hart"
     affiliations:
       - name: "College of Information Science, College of Systems and Industrial Engineering, University of Arizona"
-description: "TODO: An analysis of historical tornado patterns in the area of Minnesota (MN) from 2020-Current(2025) to predict Tornado Occurance"
+description: "An analysis of historical weather/tornado patterns in the area of Twin Cities Minnesota (MN) from 2020-Current(2025) to predict Tornado Occurance"
 format:
   html:
     code-tools: true
