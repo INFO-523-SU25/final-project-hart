@@ -1,9 +1,9 @@
 ---
-title: "Project title"
+title: "Prediction of Tornado Occurance in the Twin Cities"
 subtitle: "INFO 523 - Summer 2025 - Final Project"
-author: "Author names"
+author: "The Crengineers - Tyler Hart"
 title-slide-attributes:
-  data-background-image: images/watercolour_sys02_img34_teacup-ocean.jpg
+  data-background-image: images/1024px-Tornado_Alley_Diagram.png
   data-background-size: stretch
   data-background-opacity: "0.7"
   data-slide-number: none
@@ -19,23 +19,24 @@ execute:
 
 ```{python}
 #| label: load-packages
-#| include: false
+#| echo: false
 
 # Load packages here
 import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
 import seaborn as sns
 
 ```
 
 ```{python}
 #| label: setup
-#| include: false
+#| echo: false
 #| 
 # Set up plot theme and figure resolution
 sns.set_theme(style="whitegrid")
 sns.set_context("notebook", font_scale=1.1)
 
-import matplotlib.pyplot as plt
 plt.rcParams['figure.dpi'] = 300
 plt.rcParams['savefig.dpi'] = 300
 plt.rcParams['figure.figsize'] = (6, 6 * 0.618)
@@ -164,4 +165,4 @@ Limitations:
 
 -   You are welcomed to use the default styling of the slides. In fact, that's what I expect majority of you will do. You will differentiate yourself with the content of your presentation.
 
--   But some of you might want to play around with slide styling. Some solutions for this can be found at https://quarto.org/docs/presentations/revealjs.
+-   But some of you might want to play around with slide styling. Some solutions for this can be found at https://quarto.org/docs/presentations/revealjs.https://quarto.org/docs/presentations/revealjs.
