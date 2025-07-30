@@ -6,3 +6,5 @@
 /.quarto/
 /_extra/*
 /_freeze/*
+.cache.sqlite
+
