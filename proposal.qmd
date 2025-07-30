@@ -32,7 +32,6 @@ callAPIbool = False
 ```
 
 ## Dataset
-
 ```{python}
 #| label: load-dataset
 #| message: false
