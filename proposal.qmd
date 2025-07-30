@@ -28,7 +28,7 @@ import openmeteo_requests
 import requests_cache
 from retry_requests import retry
 
-callAPIbool = True
+callAPIbool = False
 ```
 
 ## Dataset
@@ -117,7 +117,7 @@ def callAPI():
 	WeatherRaw.to_csv('data/mn_weather_data.csv')
 	print("\nDaily data\n", WeatherRaw)
 
-if callAPIBool = True:
+if callAPIbool == True:
 	callAPI()
 else: 
 	WeatherRaw = pd.read_csv("data/mn_weather_data.csv")
