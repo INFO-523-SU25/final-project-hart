@@ -1,2 +1,11 @@
+# Code/Formatting
 jupyter
 nbformat
+quarto
+
+# Data Processing
+
+
+# Data Visualization
+matplotlib
+seaborn
