@@ -1,11 +1,11 @@
 ---
-title: "Proposal of Prediction of Tornado Occurance in Twin Cities"
+title: "Proposal of Prediction of Tornado Occurance in Minnesota"
 subtitle: "Proposal"
 author: 
   - name: "The Crengineers - Tyler Hart"
     affiliations:
       - name: "College of Information Science, College of Systems and Industrial Engineering, University of Arizona"
-description: "TODO: An analysis of historical tornado patterns in the area of Minnesota (MN) from 2020-Current(2025) to predict Tornado Occurance"
+description: "TODO: An analysis of historical tornado patterns in the area of Minnesota (MN) from 2020-Current(2025) to predict Tornado Damage"
 format:
   html:
     code-tools: true
@@ -27,6 +27,8 @@ import pandas as pd
 import openmeteo_requests
 import requests_cache
 from retry_requests import retry
+
+callAPIbool = True
 ```
 
 ## Dataset
@@ -34,90 +36,99 @@ from retry_requests import retry
 ```{python}
 #| label: load-dataset
 #| message: false
+#| 
+def callAPI(): 
+	# Setup the Open-Meteo API client with cache and retry on error
+	cache_session = requests_cache.CachedSession('.cache', expire_after = -1)
+	retry_session = retry(cache_session, retries = 5, backoff_factor = 0.2)
+	openmeteo = openmeteo_requests.Client(session = retry_session)
+
+	# The order of variables in daily is important to assign them correctly below
+	url = "https://archive-api.open-meteo.com/v1/archive"
+	params = {
+		"latitude": 44.98,
+		"longitude": -93.2638,
+		"start_date": "2020-01-01",
+		"end_date": "2024-12-31",
+		"daily": ["weather_code", "temperature_2m_mean", "temperature_2m_max", "temperature_2m_min", "precipitation_sum", "rain_sum", "snowfall_sum", "wind_speed_10m_max", "wind_gusts_10m_max", "wind_direction_10m_dominant", "dew_point_2m_mean", "dew_point_2m_max", "dew_point_2m_min", "relative_humidity_2m_mean", "relative_humidity_2m_max", "relative_humidity_2m_min", "surface_pressure_mean", "surface_pressure_max", "surface_pressure_min"],
+		"timezone": "America/Chicago",
+		"temperature_unit": "fahrenheit",
+		"wind_speed_unit": "mph",
+		"precipitation_unit": "inch",
+	}
+	responses = openmeteo.weather_api(url, params=params)
+
+	response = responses[0]
+	print(f"Coordinates: {response.Latitude()}°N {response.Longitude()}°E")
+	print(f"Elevation: {response.Elevation()} m asl")
+	print(f"Timezone: {response.Timezone()}{response.TimezoneAbbreviation()}")
+	print(f"Timezone difference to GMT+0: {response.UtcOffsetSeconds()}s")
+
+	# Process daily data. The order of variables needs to be the same as requested.
+	daily = response.Daily()
+	daily_weather_code = daily.Variables(0).ValuesAsNumpy()
+	daily_temperature_2m_mean = daily.Variables(1).ValuesAsNumpy()
+	daily_temperature_2m_max = daily.Variables(2).ValuesAsNumpy()
+	daily_temperature_2m_min = daily.Variables(3).ValuesAsNumpy()
+	daily_precipitation_sum = daily.Variables(4).ValuesAsNumpy()
+	daily_rain_sum = daily.Variables(5).ValuesAsNumpy()
+	daily_snowfall_sum = daily.Variables(6).ValuesAsNumpy()
+	daily_wind_speed_10m_max = daily.Variables(7).ValuesAsNumpy()
+	daily_wind_gusts_10m_max = daily.Variables(8).ValuesAsNumpy()
+	daily_wind_direction_10m_dominant = daily.Variables(9).ValuesAsNumpy()
+	daily_dew_point_2m_mean = daily.Variables(10).ValuesAsNumpy()
+	daily_dew_point_2m_max = daily.Variables(11).ValuesAsNumpy()
+	daily_dew_point_2m_min = daily.Variables(12).ValuesAsNumpy()
+	daily_relative_humidity_2m_mean = daily.Variables(13).ValuesAsNumpy()
+	daily_relative_humidity_2m_max = daily.Variables(14).ValuesAsNumpy()
+	daily_relative_humidity_2m_min = daily.Variables(15).ValuesAsNumpy()
+	daily_surface_pressure_mean = daily.Variables(16).ValuesAsNumpy()
+	daily_surface_pressure_max = daily.Variables(17).ValuesAsNumpy()
+	daily_surface_pressure_min = daily.Variables(18).ValuesAsNumpy()
+
+	daily_data = {"date": pd.date_range(
+		start = pd.to_datetime(daily.Time(), unit = "s", utc = True),
+		end = pd.to_datetime(daily.TimeEnd(), unit = "s", utc = True),
+		freq = pd.Timedelta(seconds = daily.Interval()),
+		inclusive = "left"
+	)}
+
+	daily_data["weather_code"] = daily_weather_code
+	daily_data["temperature_2m_mean"] = daily_temperature_2m_mean
+	daily_data["temperature_2m_max"] = daily_temperature_2m_max
+	daily_data["temperature_2m_min"] = daily_temperature_2m_min
+	daily_data["precipitation_sum"] = daily_precipitation_sum
+	daily_data["rain_sum"] = daily_rain_sum
+	daily_data["snowfall_sum"] = daily_snowfall_sum
+	daily_data["wind_speed_10m_max"] = daily_wind_speed_10m_max
+	daily_data["wind_gusts_10m_max"] = daily_wind_gusts_10m_max
+	daily_data["wind_direction_10m_dominant"] = daily_wind_direction_10m_dominant
+	daily_data["dew_point_2m_mean"] = daily_dew_point_2m_mean
+	daily_data["dew_point_2m_max"] = daily_dew_point_2m_max
+	daily_data["dew_point_2m_min"] = daily_dew_point_2m_min
+	daily_data["relative_humidity_2m_mean"] = daily_relative_humidity_2m_mean
+	daily_data["relative_humidity_2m_max"] = daily_relative_humidity_2m_max
+	daily_data["relative_humidity_2m_min"] = daily_relative_humidity_2m_min
+	daily_data["surface_pressure_mean"] = daily_surface_pressure_mean
+	daily_data["surface_pressure_max"] = daily_surface_pressure_max
+	daily_data["surface_pressure_min"] = daily_surface_pressure_min
+
+	WeatherRaw = pd.DataFrame(data = daily_data)
+	WeatherRaw.to_csv('data/mn_weather_data.csv')
+	print("\nDaily data\n", WeatherRaw)
+
+if callAPIBool = True:
+	callAPI()
+else: 
+	WeatherRaw = pd.read_csv("data/mn_weather_data.csv")
 
 HistoricRaw = pd.read_csv("data/storm_data_search_results.csv")
 HistoricRaw.head()
 HistoricRaw.info()
 HistoricRaw.isna().sum()
 
-# Setup the Open-Meteo API client with cache and retry on error
-cache_session = requests_cache.CachedSession('.cache', expire_after = -1)
-retry_session = retry(cache_session, retries = 5, backoff_factor = 0.2)
-openmeteo = openmeteo_requests.Client(session = retry_session)
 
-# The order of variables in daily is important to assign them correctly below
-url = "https://archive-api.open-meteo.com/v1/archive"
-params = {
-	"latitude": 44.98,
-	"longitude": -93.2638,
-	"start_date": "2020-01-01",
-	"end_date": "2024-12-31",
-	"daily": ["weather_code", "temperature_2m_mean", "temperature_2m_max", "temperature_2m_min", "precipitation_sum", "rain_sum", "snowfall_sum", "wind_speed_10m_max", "wind_gusts_10m_max", "wind_direction_10m_dominant", "dew_point_2m_mean", "dew_point_2m_max", "dew_point_2m_min", "relative_humidity_2m_mean", "relative_humidity_2m_max", "relative_humidity_2m_min", "surface_pressure_mean", "surface_pressure_max", "surface_pressure_min"],
-	"timezone": "America/Chicago",
-	"temperature_unit": "fahrenheit",
-	"wind_speed_unit": "mph",
-	"precipitation_unit": "inch",
-}
-responses = openmeteo.weather_api(url, params=params)
 
-response = responses[0]
-print(f"Coordinates: {response.Latitude()}°N {response.Longitude()}°E")
-print(f"Elevation: {response.Elevation()} m asl")
-print(f"Timezone: {response.Timezone()}{response.TimezoneAbbreviation()}")
-print(f"Timezone difference to GMT+0: {response.UtcOffsetSeconds()}s")
-
-# Process daily data. The order of variables needs to be the same as requested.
-daily = response.Daily()
-daily_weather_code = daily.Variables(0).ValuesAsNumpy()
-daily_temperature_2m_mean = daily.Variables(1).ValuesAsNumpy()
-daily_temperature_2m_max = daily.Variables(2).ValuesAsNumpy()
-daily_temperature_2m_min = daily.Variables(3).ValuesAsNumpy()
-daily_precipitation_sum = daily.Variables(4).ValuesAsNumpy()
-daily_rain_sum = daily.Variables(5).ValuesAsNumpy()
-daily_snowfall_sum = daily.Variables(6).ValuesAsNumpy()
-daily_wind_speed_10m_max = daily.Variables(7).ValuesAsNumpy()
-daily_wind_gusts_10m_max = daily.Variables(8).ValuesAsNumpy()
-daily_wind_direction_10m_dominant = daily.Variables(9).ValuesAsNumpy()
-daily_dew_point_2m_mean = daily.Variables(10).ValuesAsNumpy()
-daily_dew_point_2m_max = daily.Variables(11).ValuesAsNumpy()
-daily_dew_point_2m_min = daily.Variables(12).ValuesAsNumpy()
-daily_relative_humidity_2m_mean = daily.Variables(13).ValuesAsNumpy()
-daily_relative_humidity_2m_max = daily.Variables(14).ValuesAsNumpy()
-daily_relative_humidity_2m_min = daily.Variables(15).ValuesAsNumpy()
-daily_surface_pressure_mean = daily.Variables(16).ValuesAsNumpy()
-daily_surface_pressure_max = daily.Variables(17).ValuesAsNumpy()
-daily_surface_pressure_min = daily.Variables(18).ValuesAsNumpy()
-
-daily_data = {"date": pd.date_range(
-	start = pd.to_datetime(daily.Time(), unit = "s", utc = True),
-	end = pd.to_datetime(daily.TimeEnd(), unit = "s", utc = True),
-	freq = pd.Timedelta(seconds = daily.Interval()),
-	inclusive = "left"
-)}
-
-daily_data["weather_code"] = daily_weather_code
-daily_data["temperature_2m_mean"] = daily_temperature_2m_mean
-daily_data["temperature_2m_max"] = daily_temperature_2m_max
-daily_data["temperature_2m_min"] = daily_temperature_2m_min
-daily_data["precipitation_sum"] = daily_precipitation_sum
-daily_data["rain_sum"] = daily_rain_sum
-daily_data["snowfall_sum"] = daily_snowfall_sum
-daily_data["wind_speed_10m_max"] = daily_wind_speed_10m_max
-daily_data["wind_gusts_10m_max"] = daily_wind_gusts_10m_max
-daily_data["wind_direction_10m_dominant"] = daily_wind_direction_10m_dominant
-daily_data["dew_point_2m_mean"] = daily_dew_point_2m_mean
-daily_data["dew_point_2m_max"] = daily_dew_point_2m_max
-daily_data["dew_point_2m_min"] = daily_dew_point_2m_min
-daily_data["relative_humidity_2m_mean"] = daily_relative_humidity_2m_mean
-daily_data["relative_humidity_2m_max"] = daily_relative_humidity_2m_max
-daily_data["relative_humidity_2m_min"] = daily_relative_humidity_2m_min
-daily_data["surface_pressure_mean"] = daily_surface_pressure_mean
-daily_data["surface_pressure_max"] = daily_surface_pressure_max
-daily_data["surface_pressure_min"] = daily_surface_pressure_min
-
-daily_dataframe = pd.DataFrame(data = daily_data)
-daily_dataframe.to_csv()
-print("\nDaily data\n", daily_dataframe)
 ```
 
 A brief description of your dataset including its provenance, dimensions, etc. as well as the reason why you chose this dataset.
