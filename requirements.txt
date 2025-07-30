@@ -3,9 +3,15 @@ jupyter
 nbformat
 quarto
 
+#API
+openmeteo_requests
+requests_cache
+retry_requests
+
 # Data Processing
 
 
 # Data Visualization
 matplotlib
 seaborn
+
