@@ -22,12 +22,14 @@ jupyter: python3
 ```{python}
 #| label: load-pkgs
 #| message: false
+#| Here are the packages I need as of now to query the API and do pasic dataset operations
 import numpy as np
 import pandas as pd
 import openmeteo_requests
 import requests_cache
 from retry_requests import retry
 
+#| Here is a boolean to regenerate the call to the API in case I want to query more data
 callAPIbool = False
 ```
 
@@ -35,8 +37,8 @@ callAPIbool = False
 ```{python}
 #| label: load-dataset
 #| message: false
-#| 
-def callAPI(): 
+#| Here is the function to call the Open-Meteo API to get daily weather data
+def callDailyWeatherAPI(): 
 	# Setup the Open-Meteo API client with cache and retry on error
 	cache_session = requests_cache.CachedSession('.cache', expire_after = -1)
 	retry_session = retry(cache_session, retries = 5, backoff_factor = 0.2)
@@ -117,7 +119,7 @@ def callAPI():
 	print("\nDaily data\n", WeatherRaw)
 
 if callAPIbool == True:
-	callAPI()
+	callDailyWeatherAPI()
 else: 
 	WeatherRaw = pd.read_csv("data/mn_weather_data.csv")
 	WeatherRaw.head()
@@ -128,24 +130,47 @@ HistoricRaw = pd.read_csv("data/storm_data_search_results.csv")
 HistoricRaw.head()
 HistoricRaw.info()
 HistoricRaw.isna().sum()
-
-
-
 ```
 
-A brief description of your dataset including its provenance, dimensions, etc. as well as the reason why you chose this dataset.
+
+First and foremost I chose this project as I have recently had some friends effected by tornados in the state of MN. Since there is a large amount of weather data publically available, I thought the data would be easy to source and models already exists as a baseline to use. I think this will allow me to focus on the ML part of the course rather than the data preprocessing which is a new area to me. Furthermore, I think there are some good classification questions about how to classify weather based on basic data and some good regression questions about can I predict tornadoes occurence based on this basic daily weather data. 
+As of now I have 2 datasets the first is the historical archive of tornadows in MN from as far back as the 1950's it contains the day of the Tornado as well as relative size/damage that was in its path. It has 38 columns which can be seen with the head command below:
 'WeatherRaw.head()
 'WeatherRaw.info()
-'WeatherRaw.isna().sum()
+Looking at the data it seems like a lot of the data is not filled in or defaulted with zeros. This is due to the many sources of data. In my case I think this is ok as I am really using it as a query to the conditions of the day. An important note is that this contains all the Tonado data for MN. Since I only have weather data for the twin cities I will filter it out later to only the surrounding counties. 
+TODO: ADD MAP FOR VISUAL OF THE AREA OF INTEREST
+A full data dictionary can be seen in the csv for the storm data export located at data_dictionaries/Storm-Data-Export.pdf. These will eventualy be transcribed to the README.md files for each of the datasets
+
+The other data I will be using is data queried from a weather API. the code used to do this can be seen in the main python sections of the proposal. This set contains all of the last 5 years 2020 - current daily weather data. The first couple rows can be seen below: 
 'HistoricRaw.head()
+It is 20 * 1827 different daily weather data coming out of MSP international airport. This is the major weather hub for the twin cities. Using this data it all seems to be pretty numerical and filled in pretty accurately. I do see some areas with 0 values that may need to be addressed later. 
 'HistoricRaw.info()
-'HistoricRaw.isna().sum()
-Make sure to load the data and use inline code for some of this information.
+My plan is to use ths to get the conditions on days where tornados occurred. This will be were most of the model data is derived from. A data dictionary can be seen in the data_dictionary/README.md
+
 
 ## Questions
 
-The two questions you want to answer.
+Can I classify the weather conditions of different major weather events using daily data (i.e. Can I say this weather is indicitave of a sunny day, or severe thurnderstorm, or drizzling)
+
+Can I build a model to predict tornado occurance given a daily weather 
 
 ## Analysis plan
 
--   A plan for answering each of the questions including the variables involved, variables to be created (if any), external data to be merged in (if any).
+| Week    | Dates 	   |                              Tasks                                  |   Status    |
+|---------|:-----------|--------------------------------------------------------------------:|:------------|
+| 1       | 7/28->8/1  | Search and Find Data                                                | Complete    |
+| 2       | 8/4->8/8   | Create Proposal and Load and Make Data Dict and Clean Data          | In Progress |
+| 2.5     | 8/7->8/10  | Perform EDA and Create Engineering Features and Start Write Up      | In Progress |
+| 3       | 8/11->8/13 | Create Models and Examine Measures of Accuracy and Add to Write Up  | Not Started |
+| 3.5     | 8/14->8/17 | Tune and Validate Classification and Regression and Add to Write Up | Not Started |
+| 4       | 8/18->8/20 | Finish Write Up and Finish Presentation                             | Not Started |
+
+: Analysis Weekly Attack Plan
+
+# Course of Action
+Search and Find Data: 
+Create Proposal and Load and Make Data Dict and Clean Data:
+Perform EDA and Create Engineering Features and Start Write Up:
+Create Models and Examine Measures of Accuracy and Add to Write Up:
+Tune and Validate Classification and Regression and Add to Write Up:
+Finish Write Up and Finish Presentation:
