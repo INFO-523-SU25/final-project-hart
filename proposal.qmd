@@ -145,7 +145,75 @@ The other data I will be using is data queried from a weather API. the code used
 'HistoricRaw.head()
 It is 20 * 1827 different daily weather data coming out of MSP international airport. This is the major weather hub for the twin cities. Using this data it all seems to be pretty numerical and filled in pretty accurately. I do see some areas with 0 values that may need to be addressed later. 
 'HistoricRaw.info()
-My plan is to use ths to get the conditions on days where tornados occurred. This will be were most of the model data is derived from. A data dictionary can be seen in the data_dictionary/README.md
+My plan is to use ths to get the conditions on days where tornados occurred. This will be were most of the model data is derived from. A data dictionary can be seen in the data/README.md or below: 
+
+### Codebook for [mn_weather_data] Dataset
+
+|        Variable Names       |Data Types| Description | Unit |
+|-----------------------------|----------|-------------|------|
+| date	                      | TimeDate | Data and Time of weather collection | (YYYY-MM-DD hh-mm-ss) |
+| weather_code                | Float    | The most severe weather condition on a given day | (WMO Code) |
+| temperature_2m_mean         | Float    | Mean daily air temperature at 2 meters above ground | (°F) |
+| temperature_2m_max          | Float    | Maximum daily air temperature at 2 meters above ground | (°F) |
+| temperature_2m_min          | Float    | Minimum daily air temperature at 2 meters above ground | (°F) |
+| precipitation_sum           | Float    | Sum of daily precipitation (including rain, showers and snowfall) | (mm) |
+| rain_sum                    | Float    | Sum of daily rain | (mm) |
+| snowfall_sum                | Float    | Sum of daily snowfall | (cm) |
+| wind_speed_10m_max          | Float    | Maximum wind speed on a day | (mph) | 
+| wind_gusts_10m_max	        | Float    | Maximum wind gusts on a day | (mph) |
+| wind_direction_10m_dominant	| Float    | Dominant wind direction | (°) |
+| dew_point_2m_mean	          | Float    | Mean daily dew point at 2 meters above ground | () |
+| dew_point_2m_max	          | Float    | Maximum daily dew point at 2 meters above ground | () |
+| dew_point_2m_min	          | Float    | Minimum daily dew point at 2 meters above ground | () |
+| relative_humidity_2m_mean	  | Float    | Mean daily relative humidiity at 2 meters above ground | () |
+| relative_humidity_2m_max	  | Float    | Maximum daily relative humidity at 2 meters above ground | () |
+| relative_humidity_2m_min    | Float    | Minimum daily relative humidity at 2 meters above ground | () |
+| surface_pressure_mean	      | Float    | Mean daily pressure at surface | () |
+| surface_pressure_max	      | Float    | Maximum daily pressure at surface | () |
+| surface_pressure_min        | Float    | Minimum daily daily pressure at surface | () |
+
+### Codebook for [storm_data_search_results] Dataset
+
+|    Variable Names   |       Data Types      | Description |  Unit |
+|---------------------|-----------------------|-------------|-------|
+| EVENT_ID            | Int | ID assigned by NWS to note a single, small part that goes into a specific storm episode | Database ID |
+| CZ_NAME_STR         | String | County/Parish, Zone or Marine Name assigned to the county FIPS number or NWS Forecast Zone | None |
+| BEGIN_LOCATION      | String | 
+| BEGIN_DATE          | Date | 
+| BEGIN_TIME          | Time | 
+| EVENT_TYPE          | String | Type of Storm Event (ex. Tornadoes, Hail, etc.) | None | 
+| MAGNITUDE           | 
+| TOR_F_SCALE         | String | Enhanced Fujita Scale describes the strength of the tornado based on the amount and type of damage caused by the tornado | Fujita Scale |
+| DEATHS_DIRECT       | Int | The number of deaths directly related to the weather event | Deaths | 
+| INJURIES_DIRECT     | Int | The number of injuries directly related to the weather event | Injuries | 
+| DAMAGE_PROPERTY_NUM | 
+| DAMAGE_CROPS_NUM    |
+| STATE_ABBR          |
+| CZ_TIMEZONE         | String | Time Zone for the County/Parish, Zone or Marine Name | Time Zone | 
+| MAGNITUDE_TYPE      | 
+| EPISODE_ID          | 
+| CZ_TYPE             | String | Type of Jurisdiction (County/Parish, Zone or Marine Name) | None |
+| CZ_FIPS             | Int | FIPS ID number given to County/Parish, Zone or Marine Name | FIPS Code | 
+| WFO                 |
+| INJURIES_INDIRECT   | Int | The number of injuries indirectly related to the weather event | Injuries | 
+| DEATHS_INDIRECT     | Int | The number of deaths indirectly related to the weather event | Deaths | 
+| SOURCE              | String | Source of where information came from (ex. Weather Radar, Storm Chaser, Sighting, etc.) | None 
+| FLOOD_CAUSE         |
+| TOR_LENGTH          | Float | Length of the tornado or tornado segment while on the ground | (Miles) |
+| TOR_WIDTH           | Int | Width of the tornado or tornado segment while on the ground | (Yards) |
+| BEGIN_RANGE         |
+| BEGIN_AZIMUTH       |
+| END_RANGE           |
+| END_AZIMUTH         | 
+| END_LOCATION        | String | 
+| END_DATE            | Date | 
+| END_TIME            | Time |
+| BEGIN_LAT           | Float | The latitude where the event began | (°) |
+| BEGIN_LON           | Float | The longitude where the event began | (°) |
+| END_LAT             | Float | The latitude where the event ended | (°) |
+| END_LON             | Float | The longitude where the event ended | (°) |
+| EPISODE_NARRATIVE   | Sentence | The episode narrative depicting the general nature and overall activity of the episode. The narrative is created by NWS. | None | 
+| EVENT_NARRATIVE     | Sentence | The event narrative provides more specific details of the individual event. The event narrative is provided by NWS. | None |
 
 
 ## Questions
