@@ -1,15 +1,5 @@
-# Data
--   **[Dataset]**: Description of the dataset 
-
-# Codebook for [chosen] Dataset
-
-## Variable Names and Descriptions:
-
--   **variable**: Description (with units, where applicable)
-
-## Data Types:
-
--   **Column**: data type
+# Folder Contents
+-  This is the raw pdf from the NOAA Dictionary used as a reference. The data dictionary will be transcribed to the data/README.md and the Proposal as needed. 
 
 
 
