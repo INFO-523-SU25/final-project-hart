@@ -139,7 +139,7 @@ As of now I have 2 datasets the first is the historical archive of tornadows in 
 'WeatherRaw.info()
 Looking at the data it seems like a lot of the data is not filled in or defaulted with zeros. This is due to the many sources of data. In my case I think this is ok as I am really using it as a query to the conditions of the day. An important note is that this contains all the Tonado data for MN. Since I only have weather data for the twin cities I will filter it out later to only the surrounding counties.
 
-[![Image of Twin Cities]( "Twin Cities Map")]
+[![Image of Minnesota](images/Screenshot 2025-08-10 170556.png "Minnesota Map")]
 
 A full data dictionary can be seen in the csv for the storm data export located at data_dictionaries/Storm-Data-Export.pdf. These will eventualy be transcribed to the README.md files for each of the datasets
 
