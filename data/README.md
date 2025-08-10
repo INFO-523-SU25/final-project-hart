@@ -5,8 +5,8 @@
 
 # Codebook for [mn_weather_data] Dataset
 
-|        Variable Names       |       Data Types      | Description | Unit |
-|-----------------------------|-----------------------|-------------|------|
+|        Variable Names       |Data Types| Description | Unit |
+|-----------------------------|----------|-------------|------|
 | date	                      | TimeDate | Data and Time of weather collection | (YYYY-MM-DD hh-mm-ss) |
 | weather_code                | Float    | The most severe weather condition on a given day | (WMO Code) |
 | temperature_2m_mean         | Float    | Mean daily air temperature at 2 meters above ground | (°F) |
@@ -30,6 +30,44 @@
 
 # Codebook for [storm_data_search_results] Dataset
 
-|        Variable Names       |       Data Types      | Description | 
-|-----------------------------|-----------------------|-------------|
-
+|    Variable Names   |       Data Types      | Description | 
+|---------------------|-----------------------|-------------|
+| EVENT_ID            |   
+| CZ_NAME_STR         |
+| BEGIN_LOCATION      |
+| BEGIN_DATE          |
+| BEGIN_TIME          |
+| EVENT_TYPE          |
+| MAGNITUDE           |
+| TOR_F_SCALE         |
+| DEATHS_DIRECT       |
+| INJURIES_DIRECT     |
+| DAMAGE_PROPERTY_NUM | 
+| DAMAGE_CROPS_NUM    |
+| STATE_ABBR          |
+| CZ_TIMEZONE         |
+| MAGNITUDE_TYPE      |
+| EPISODE_ID          |
+| CZ_TYPE             |
+| CZ_FIPS             |
+| WFO                 |
+| INJURIES_INDIRECT   |
+| DEATHS_INDIRECT     |
+| SOURCE              |
+| FLOOD_CAUSE         |
+| TOR_LENGTH          |
+| TOR_WIDTH           |
+| BEGIN_RANGE         |
+| BEGIN_AZIMUTH       |
+| END_RANGE           |
+| END_AZIMUTH         |
+| END_LOCATION        |
+| END_DATE            |
+| END_TIME            |
+| BEGIN_LAT           |
+| BEGIN_LON           |
+| END_LAT             |
+| END_LON             |
+| EVENT_NARRATIVE     |
+| EPISODE_NARRATIVE   |
+| ABSOLUTE_ROWNUMBER  |
