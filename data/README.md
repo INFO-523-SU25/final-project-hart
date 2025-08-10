@@ -5,28 +5,28 @@
 
 # Codebook for [mn_weather_data] Dataset
 
-|        Variable Names       |       Data Types      | Description | 
-|-----------------------------|-----------------------|-------------|
-| date	                      | TimeDate (YYYY-MM-DD) |
-| weather_code                | Float                 |
-| temperature_2m_mean         | Float                 |
-| temperature_2m_max          | Float                 |
-| temperature_2m_min          | Float                 |
-| precipitation_sum           | Float                 |
-| rain_sum                    | Float                 |
-| snowfall_sum                | Float                 |
-| wind_speed_10m_max          | Float                 |
-| wind_gusts_10m_max	        | Float                 |
-| wind_direction_10m_dominant	| Float                 |
-| dew_point_2m_mean	          | Float                 |
-| dew_point_2m_max	          | Float                 |
-| dew_point_2m_min	          | Float                 |
-| relative_humidity_2m_mean	  | Float                 |
-| relative_humidity_2m_max	  | Float                 |
-| relative_humidity_2m_min    | Float                 |
-| surface_pressure_mean	      | Float                 |
-| surface_pressure_max	      | Float                 |
-| surface_pressure_min        | Float                 |
+|        Variable Names       |       Data Types      | Description | Unit |
+|-----------------------------|-----------------------|-------------|------|
+| date	                      | TimeDate | Data and Time of weather collection | (YYYY-MM-DD hh-mm-ss) |
+| weather_code                | Float    | The most severe weather condition on a given day | (WMO Code) |
+| temperature_2m_mean         | Float    | Mean daily air temperature at 2 meters above ground | (°F) |
+| temperature_2m_max          | Float    | Maximum daily air temperature at 2 meters above ground | (°F) |
+| temperature_2m_min          | Float    | Minimum daily air temperature at 2 meters above ground | (°F) |
+| precipitation_sum           | Float    | Sum of daily precipitation (including rain, showers and snowfall) | (mm) |
+| rain_sum                    | Float    | Sum of daily rain | (mm) |
+| snowfall_sum                | Float    | Sum of daily snowfall | (cm) |
+| wind_speed_10m_max          | Float    | Maximum wind speed on a day | (mph) | 
+| wind_gusts_10m_max	        | Float    | Maximum wind gusts on a day | (mph) |
+| wind_direction_10m_dominant	| Float    | Dominant wind direction | (°) |
+| dew_point_2m_mean	          | Float    | Mean daily dew point at 2 meters above ground | () |
+| dew_point_2m_max	          | Float    | Maximum daily dew point at 2 meters above ground | () |
+| dew_point_2m_min	          | Float    | Minimum daily dew point at 2 meters above ground | () |
+| relative_humidity_2m_mean	  | Float    | Mean daily relative humidiity at 2 meters above ground | () |
+| relative_humidity_2m_max	  | Float    | Maximum daily relative humidity at 2 meters above ground | () |
+| relative_humidity_2m_min    | Float    | Minimum daily relative humidity at 2 meters above ground | () |
+| surface_pressure_mean	      | Float    | Mean daily pressure at surface | () |
+| surface_pressure_max	      | Float    | Maximum daily pressure at surface | () |
+| surface_pressure_min        | Float    | Minimum daily daily pressure at surface | () |
 
 # Codebook for [storm_data_search_results] Dataset
 
