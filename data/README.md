@@ -1,5 +1,5 @@
 # Data
--   **[mn_weather_data]**:
+-   **[mn_weather_data]**: Daily weather data coming out of the Mineapolis Saint Paul (Twin Cities) Weather Center at MSP international airport. The data has been synthesized from the open-meteo API for all days from Jan 1 2020 to December 31 2024. It contains most weather stats plus some advanced stats pertaining to wind speeds, CAPE, etc. 
   
 -   **[storm_data_search_results]**: Historical tornado data dating back to the 1950's from the US NOAA. The data contains all of the data for every reported tornado in the state of Minnesota. For the purposes of this analysis the data will only be used corresponding to available daily data 2020-2025. If more data is needed I will update this!
 
@@ -30,16 +30,16 @@
 
 # Codebook for [storm_data_search_results] Dataset
 
-|    Variable Names   |       Data Types      | Description | 
-|---------------------|-----------------------|-------------|
-| EVENT_ID            |   
-| CZ_NAME_STR         |
-| BEGIN_LOCATION      |
-| BEGIN_DATE          |
-| BEGIN_TIME          |
-| EVENT_TYPE          |
-| MAGNITUDE           |
-| TOR_F_SCALE         |
+|    Variable Names   |       Data Types      | Description |  Unit |
+|---------------------|-----------------------|-------------|-------|
+| EVENT_ID            | Int | ID assigned by NWS to note a single, small part that goes into a specific storm episode | Database ID |
+| CZ_NAME_STR         | String | County/Parish, Zone or Marine Name assigned to the county FIPS number or NWS Forecast Zone | None |
+| BEGIN_LOCATION      | String | 
+| BEGIN_DATE          | Date | 
+| BEGIN_TIME          | Time | 
+| EVENT_TYPE          | String | Type of Storm Event (ex. Tornadoes, Hail, etc.) | None | 
+| MAGNITUDE           | 
+| TOR_F_SCALE         | String | Enhanced Fujita Scale describes the strength of the tornado based on the amount and type of damage caused by the tornado | Fujita Scale |
 | DEATHS_DIRECT       |
 | INJURIES_DIRECT     |
 | DAMAGE_PROPERTY_NUM | 
@@ -48,15 +48,15 @@
 | CZ_TIMEZONE         |
 | MAGNITUDE_TYPE      |
 | EPISODE_ID          |
-| CZ_TYPE             |
-| CZ_FIPS             |
+| CZ_TYPE             | String | Type of Jurisdiction (County/Parish, Zone or Marine Name) | None |
+| CZ_FIPS             | Int | FIPS ID number given to County/Parish, Zone or Marine Name | FIPS Code | 
 | WFO                 |
 | INJURIES_INDIRECT   |
 | DEATHS_INDIRECT     |
 | SOURCE              |
 | FLOOD_CAUSE         |
-| TOR_LENGTH          |
-| TOR_WIDTH           |
+| TOR_LENGTH          | Float | Length of the tornado or tornado segment while on the ground | (Miles) |
+| TOR_WIDTH           | Int | Width of the tornado or tornado segment while on the ground | (Yards) |
 | BEGIN_RANGE         |
 | BEGIN_AZIMUTH       |
 | END_RANGE           |
@@ -64,10 +64,9 @@
 | END_LOCATION        |
 | END_DATE            |
 | END_TIME            |
-| BEGIN_LAT           |
-| BEGIN_LON           |
-| END_LAT             |
-| END_LON             |
-| EVENT_NARRATIVE     |
-| EPISODE_NARRATIVE   |
-| ABSOLUTE_ROWNUMBER  |
+| BEGIN_LAT           | Float | The latitude where the event began | (°) |
+| BEGIN_LON           | Float | The longitude where the event began | (°) |
+| END_LAT             | Float | The latitude where the event ended | (°) |
+| END_LON             | Float | The longitude where the event ended | (°) |
+| EPISODE_NARRATIVE   | Sentence | The episode narrative depicting the general nature and overall activity of the episode. The narrative is created by NWS. | None | 
+| EVENT_NARRATIVE     | Sentence | The event narrative provides more specific details of the individual event. The event narrative is provided by NWS. | None |
