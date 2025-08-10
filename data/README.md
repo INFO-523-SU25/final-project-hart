@@ -40,30 +40,30 @@
 | EVENT_TYPE          | String | Type of Storm Event (ex. Tornadoes, Hail, etc.) | None | 
 | MAGNITUDE           | 
 | TOR_F_SCALE         | String | Enhanced Fujita Scale describes the strength of the tornado based on the amount and type of damage caused by the tornado | Fujita Scale |
-| DEATHS_DIRECT       |
-| INJURIES_DIRECT     |
+| DEATHS_DIRECT       | Int | The number of deaths directly related to the weather event | Deaths | 
+| INJURIES_DIRECT     | Int | The number of injuries directly related to the weather event | Injuries | 
 | DAMAGE_PROPERTY_NUM | 
 | DAMAGE_CROPS_NUM    |
 | STATE_ABBR          |
-| CZ_TIMEZONE         |
-| MAGNITUDE_TYPE      |
-| EPISODE_ID          |
+| CZ_TIMEZONE         | String | Time Zone for the County/Parish, Zone or Marine Name | Time Zone | 
+| MAGNITUDE_TYPE      | 
+| EPISODE_ID          | 
 | CZ_TYPE             | String | Type of Jurisdiction (County/Parish, Zone or Marine Name) | None |
 | CZ_FIPS             | Int | FIPS ID number given to County/Parish, Zone or Marine Name | FIPS Code | 
 | WFO                 |
-| INJURIES_INDIRECT   |
-| DEATHS_INDIRECT     |
-| SOURCE              |
+| INJURIES_INDIRECT   | Int | The number of injuries indirectly related to the weather event | Injuries | 
+| DEATHS_INDIRECT     | Int | The number of deaths indirectly related to the weather event | Deaths | 
+| SOURCE              | String | Source of where information came from (ex. Weather Radar, Storm Chaser, Sighting, etc.) | None 
 | FLOOD_CAUSE         |
 | TOR_LENGTH          | Float | Length of the tornado or tornado segment while on the ground | (Miles) |
 | TOR_WIDTH           | Int | Width of the tornado or tornado segment while on the ground | (Yards) |
 | BEGIN_RANGE         |
 | BEGIN_AZIMUTH       |
 | END_RANGE           |
-| END_AZIMUTH         |
-| END_LOCATION        |
-| END_DATE            |
-| END_TIME            |
+| END_AZIMUTH         | 
+| END_LOCATION        | String | 
+| END_DATE            | Date | 
+| END_TIME            | Time |
 | BEGIN_LAT           | Float | The latitude where the event began | (°) |
 | BEGIN_LON           | Float | The longitude where the event began | (°) |
 | END_LAT             | Float | The latitude where the event ended | (°) |
