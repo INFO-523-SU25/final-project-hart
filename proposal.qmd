@@ -137,8 +137,10 @@ First and foremost I chose this project as I have recently had some friends effe
 As of now I have 2 datasets the first is the historical archive of tornadows in MN from as far back as the 1950's it contains the day of the Tornado as well as relative size/damage that was in its path. It has 38 columns which can be seen with the head command below:
 'WeatherRaw.head()
 'WeatherRaw.info()
-Looking at the data it seems like a lot of the data is not filled in or defaulted with zeros. This is due to the many sources of data. In my case I think this is ok as I am really using it as a query to the conditions of the day. An important note is that this contains all the Tonado data for MN. Since I only have weather data for the twin cities I will filter it out later to only the surrounding counties. 
-TODO: ADD MAP FOR VISUAL OF THE AREA OF INTEREST
+Looking at the data it seems like a lot of the data is not filled in or defaulted with zeros. This is due to the many sources of data. In my case I think this is ok as I am really using it as a query to the conditions of the day. An important note is that this contains all the Tonado data for MN. Since I only have weather data for the twin cities I will filter it out later to only the surrounding counties.
+
+[![Image of Twin Cities]( "Twin Cities Map")]
+
 A full data dictionary can be seen in the csv for the storm data export located at data_dictionaries/Storm-Data-Export.pdf. These will eventualy be transcribed to the README.md files for each of the datasets
 
 The other data I will be using is data queried from a weather API. the code used to do this can be seen in the main python sections of the proposal. This set contains all of the last 5 years 2020 - current daily weather data. The first couple rows can be seen below: 
