@@ -32,7 +32,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Install R Packages
+      - name: Install Missing Packages
         run: |
           missing = checklist::install_missing_pkgs(dir = "./", glob = "*.qmd")
         shell: Rscript {0}
