@@ -33,7 +33,10 @@ from retry_requests import retry
 callAPIbool = False
 ```
 
-## Dataset
+### Dataset
+First and foremost I chose this project as I have recently had some friends effected by tornados in the state of MN. Since there is a large amount of weather data publically available, I thought the data would be easy to source and models already exists as a baseline to use. I think this will allow me to focus on the ML part of the course rather than the data preprocessing which is a new area to me. Furthermore, I think there are some good classification questions about how to classify weather based on basic data and some good regression questions about can I predict tornadoes occurence based on this basic daily weather data. 
+As of now I have 2 datasets the first is the historical archive of tornadows in MN from as far back as the 1950's it contains the day of the Tornado as well as relative size/damage that was in its path. It has 38 columns which can be seen with the head command below:
+
 ```{python}
 #| label: load-dataset
 #| message: false
@@ -131,10 +134,6 @@ HistoricRaw.head()
 HistoricRaw.info()
 HistoricRaw.isna().sum()
 ```
-
-
-First and foremost I chose this project as I have recently had some friends effected by tornados in the state of MN. Since there is a large amount of weather data publically available, I thought the data would be easy to source and models already exists as a baseline to use. I think this will allow me to focus on the ML part of the course rather than the data preprocessing which is a new area to me. Furthermore, I think there are some good classification questions about how to classify weather based on basic data and some good regression questions about can I predict tornadoes occurence based on this basic daily weather data. 
-As of now I have 2 datasets the first is the historical archive of tornadows in MN from as far back as the 1950's it contains the day of the Tornado as well as relative size/damage that was in its path. It has 38 columns which can be seen with the head command below:
 'WeatherRaw.head()
 'WeatherRaw.info()
 Looking at the data it seems like a lot of the data is not filled in or defaulted with zeros. This is due to the many sources of data. In my case I think this is ok as I am really using it as a query to the conditions of the day. An important note is that this contains all the Tonado data for MN. Since I only have weather data for the twin cities I will filter it out later to only the surrounding counties.
@@ -149,7 +148,7 @@ It is 20 * 1827 different daily weather data coming out of MSP international air
 'HistoricRaw.info()
 My plan is to use ths to get the conditions on days where tornados occurred. This will be were most of the model data is derived from. A data dictionary can be seen in the data/README.md or below: 
 
-### Codebook for [mn_weather_data] Dataset
+## Codebook for [mn_weather_data] Dataset
 
 |        Variable Names       |Data Types| Description | Unit |
 |-----------------------------|----------|-------------|------|
@@ -174,7 +173,7 @@ My plan is to use ths to get the conditions on days where tornados occurred. Thi
 | surface_pressure_max	      | Float    | Maximum daily pressure at surface | () |
 | surface_pressure_min        | Float    | Minimum daily daily pressure at surface | () |
 
-### Codebook for [storm_data_search_results] Dataset
+## Codebook for [storm_data_search_results] Dataset
 
 |    Variable Names   |       Data Types      | Description |  Unit |
 |---------------------|-----------------------|-------------|-------|
