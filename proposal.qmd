@@ -292,3 +292,34 @@ Description:
 
 Acceptance Criteria: 
 - Write up, App, and presentation finished
+
+### Repo Organization
+-   **.github/:** specifically designated for GitHub-related files, including workflows, actions, and templates customized for managing issues.
+
+-   **\_extra/:** dedicated to storing miscellaneous files that do not categorically align with other project sections, serving as a versatile repository for various supplementary documents.
+
+-   **\_freeze/:** houses frozen environment files that contain detailed information about the project's environment setup and dependencies.
+
+- **\_analysis/:** Contains the jupyter notebooks of our analysis plan of the project.
+
+-   **data/:** designated for storing essential data files crucial for the project's operations, including input files, datasets, and other vital data resources.
+
+-   **images/:** functioning as a central repository for visual assets utilized across the project, such as diagrams, charts, and screenshots, this directory houses essential visual components essential for project documentation and presentation purposes.
+
+-   **.gitignore:** designed to define exclusions from version control, ensuring that specific files and directories are not tracked by Git, thereby simplifying the versioning process.
+
+-   **README.md:** functioning as the central repository of project information, this README document provides vital details covering project setup, usage instructions, and an overarching summary of project objectives and scope.
+
+-   **about.qmd:** Quarto file supplements project documentation by providing additional contextual information, describing our project purpose, as well as names and background of individual team members. 
+
+-   **index.qmd:** serves as the main page for our project, where our write up will eventually be. This Quarto file offers in-depth descriptions of our project, encompassing all code and visualizations, as well as eventually our results.
+
+-   **presentation.qmd:** serves as a Quarto file that will present our slideshow of our final results of our project. 
+
+-   **project-final.Rproj:** 
+
+-   **proposal.qmd:** designed as the Quarto file responsible for our project proposal, housing our dataset, metadata, description, and questions, as well as our weekly plan of attack that will be updated weekly. 
+
+-   **requirements.txt:** specifies the dependencies and their respective versions required for the project to run successfully.
+
+Source: Kaggle Competition Shared Project Has Similar Layout For Ease I Checked that all of the Files Serve Similar Purpose
