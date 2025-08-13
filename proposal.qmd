@@ -269,11 +269,11 @@ Acceptance Criteria:
 Description: 
 - The goal of this task is to create an OLS model as a baseline based off PCA or other reduction techniques.
 - From there I want to examine how accurate the model is by examining the R^2 scores and MSE
-- I want to look at other scores potentially like the F1 score or ROC
+- I want to look at other scores potentially like the F1 score or ROC-AUC.
 - I want to also do some preliminary looks at implementing Ridge Regression and Lasso Regression with cross validation
 Acceptance Criteria: 
 - OLS Model Created and fit examined and documented for write up. 
-- Implement scores like F1 and AUR-ROC
+- Implement scores like F1 and ROC-AUC
 - Start Implementation of Ridge and Lasso Regression
 
 #Tune and Validate Classification and Regression and Add to Write Up:
