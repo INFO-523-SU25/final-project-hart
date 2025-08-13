@@ -216,29 +216,67 @@ My plan is to use ths to get the conditions on days where tornados occurred. Thi
 | EVENT_NARRATIVE     | Sentence | The event narrative provides more specific details of the individual event. The event narrative is provided by NWS. | None |
 
 
-## Questions
+### Questions
 
 Can I classify the weather conditions of different major weather events using daily data (i.e. Can I say this weather is indicitave of a sunny day, or severe thurnderstorm, or drizzling)
 
 Can I build a model to predict tornado occurance given a daily weather 
 
-## Analysis plan
+### Analysis plan
 
-| Week    | Dates 	   |                              Tasks                                  |   Status    |
-|---------|:-----------|--------------------------------------------------------------------:|:------------|
-| 1       | 7/28->8/1  | Search and Find Data                                                | Complete    |
-| 2       | 8/4->8/8   | Create Proposal and Load and Make Data Dict and Clean Data          | In Progress |
-| 2.5     | 8/7->8/10  | Perform EDA and Create Engineering Features and Start Write Up      | In Progress |
-| 3       | 8/11->8/13 | Create Models and Examine Measures of Accuracy and Add to Write Up  | Not Started |
-| 3.5     | 8/14->8/17 | Tune and Validate Classification and Regression and Add to Write Up | Not Started |
-| 4       | 8/18->8/20 | Finish Write Up and Finish Presentation                             | Not Started |
+| Week    | Dates 	   |                              Tasks                                  |   Status    | Date Finished |
+|---------|:-----------|--------------------------------------------------------------------:|:------------|:--------------|
+| 1       | 7/28->8/1  | Search and Find Data                                                | Complete    | 8/1           |
+| 2       | 8/4->8/8   | Create Proposal and Load and Make Data Dict and Clean Data          | Complete    | 8/11          |
+| 2.5     | 8/7->8/10  | Perform EDA and Create Engineering Features and Start Write Up      | In Progress | 8/12          |
+| 3       | 8/11->8/13 | Create Models and Examine Measures of Accuracy and Add to Write Up  | Not Started |               |
+| 3.5     | 8/14->8/17 | Tune and Validate Classification and Regression and Add to Write Up | Not Started |               |
+| 4       | 8/18->8/20 | Finish Write Up and Finish Presentation                             | Not Started | 8/19          |
 
-: Analysis Weekly Attack Plan
+##Course of Action
+#Search and Find Data:
+Description: 
+- The goal of this task is to find relevent data and to define the relevant questions. 
+- In this task I want to find data on tornadoes in the state of MN and data on daily weather patterns in the Twin Cities. 
+- Once I find this data, I want tp add it to the repo and begin the planning to get the proposal started and start the data dictionary.
+Acceptance Criteria: 
+- Data sets sourced and README Data Dictionary drafted out. 
+- Data added to repo with relevant supporting data. 
+- (Something New) Use API to source daily weather data. 
 
-# Course of Action
-Search and Find Data: 
-Create Proposal and Load and Make Data Dict and Clean Data:
-Perform EDA and Create Engineering Features and Start Write Up:
-Create Models and Examine Measures of Accuracy and Add to Write Up:
-Tune and Validate Classification and Regression and Add to Write Up:
-Finish Write Up and Finish Presentation:
+#Create Proposal and Load and Make Data Dict and Clean Data:
+Description: 
+- The goal of this task is to create the drafted proposal and make the corresponding data dictionary for the README and proposal respectively.
+- I want to load in and clean the data to only the relevant parameters that I need.
+-- The columns I want specifically are all the daily weather data and the tornadoes from 2020-2025 in the surrounding counties to the twin cities.
+- Define New Features (I want a feature for did tornado occur, I want a feature for major storms as well) 
+Acceptance Criteria: 
+- Data Loaded and Merged
+- Data columns scrubbed for relevant data and missing data resolved
+- Data Dictionary finished
+- Data Features Defined
+
+#Perform EDA and Create Engineering Features and Start Write Up:
+Description: 
+- The goal of this task is to Create the features listed previously. 
+- Once the features are created I want to do I primary EDA using seaborn/matlab plots.
+-- Document my findings from this EDA so that I can put those findings in my write up.
+Acceptance Criteria: 
+- Features created
+- EDA performed and documented 200 ish words of different observations
+
+#Create Models and Examine Measures of Accuracy and Add to Write Up:
+Description: 
+
+Acceptance Criteria: 
+
+#Tune and Validate Classification and Regression and Add to Write Up:
+Description: 
+
+Acceptance Criteria: 
+
+#Finish Write Up and Finish Presentation:
+Description: 
+
+Acceptance Criteria: 
+
