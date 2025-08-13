@@ -34,36 +34,30 @@
 |---------------------|-----------------------|-------------|-------|
 | EVENT_ID            | Int | ID assigned by NWS to note a single, small part that goes into a specific storm episode | Database ID |
 | CZ_NAME_STR         | String | County/Parish, Zone or Marine Name assigned to the county FIPS number or NWS Forecast Zone | None |
-| BEGIN_LOCATION      | String | 
-| BEGIN_DATE          | Date | 
-| BEGIN_TIME          | Time | 
+| BEGIN_LOCATION      | String | Location the event began | None | 
+| BEGIN_DATE          | Date | Date the event was reported | MM-DD-YYYY | 
+| BEGIN_TIME          | Time | Time the event was reported | hh:mm:ss | 
 | EVENT_TYPE          | String | Type of Storm Event (ex. Tornadoes, Hail, etc.) | None | 
-| MAGNITUDE           | 
 | TOR_F_SCALE         | String | Enhanced Fujita Scale describes the strength of the tornado based on the amount and type of damage caused by the tornado | Fujita Scale |
 | DEATHS_DIRECT       | Int | The number of deaths directly related to the weather event | Deaths | 
 | INJURIES_DIRECT     | Int | The number of injuries directly related to the weather event | Injuries | 
-| DAMAGE_PROPERTY_NUM | 
-| DAMAGE_CROPS_NUM    |
-| STATE_ABBR          |
+| DAMAGE_PROPERTY_NUM | Float | Estimated monetary damage of property in the effected areas | $ | 
+| DAMAGE_CROPS_NUM    | Float | Estimated monetary damage of crops in the effected areas | $ | 
+| STATE_ABBR          | String | State code of effected area | State Code | 
 | CZ_TIMEZONE         | String | Time Zone for the County/Parish, Zone or Marine Name | Time Zone | 
-| MAGNITUDE_TYPE      | 
-| EPISODE_ID          | 
+| EPISODE_ID          | Int | ID assigned by NWS to denote the storm episode | None |
 | CZ_TYPE             | String | Type of Jurisdiction (County/Parish, Zone or Marine Name) | None |
 | CZ_FIPS             | Int | FIPS ID number given to County/Parish, Zone or Marine Name | FIPS Code | 
-| WFO                 |
+| WFO                 | String | National Weather Service Forecast Office’s area of responsibility in which the event occurred | WFO Code |
 | INJURIES_INDIRECT   | Int | The number of injuries indirectly related to the weather event | Injuries | 
 | DEATHS_INDIRECT     | Int | The number of deaths indirectly related to the weather event | Deaths | 
-| SOURCE              | String | Source of where information came from (ex. Weather Radar, Storm Chaser, Sighting, etc.) | None 
-| FLOOD_CAUSE         |
-| TOR_LENGTH          | Float | Length of the tornado or tornado segment while on the ground | (Miles) |
-| TOR_WIDTH           | Int | Width of the tornado or tornado segment while on the ground | (Yards) |
-| BEGIN_RANGE         |
-| BEGIN_AZIMUTH       |
-| END_RANGE           |
-| END_AZIMUTH         | 
-| END_LOCATION        | String | 
-| END_DATE            | Date | 
-| END_TIME            | Time |
+| SOURCE              | String | Source of where information came from (ex. Weather Radar, Storm Chaser, Sighting, etc.) | None |
+| FLOOD_CAUSE         | String | Reported or estimated cause of the flood | None | 
+| TOR_LENGTH          | Float | Length of the tornado or tornado segment while on the ground | Miles |
+| TOR_WIDTH           | Int | Width of the tornado or tornado segment while on the ground | Yards |
+| END_LOCATION        | String | Location the event ended | None | 
+| END_DATE            | Date | Date the event ended | MM-DD-YYYY | 
+| END_TIME            | Time | Time the event was ended | hh:mm:ss |
 | BEGIN_LAT           | Float | The latitude where the event began | (°) |
 | BEGIN_LON           | Float | The longitude where the event began | (°) |
 | END_LAT             | Float | The latitude where the event ended | (°) |
