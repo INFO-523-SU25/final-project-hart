@@ -287,8 +287,12 @@ Acceptance Criteria:
 - Lasso and Ridge regressions finished and examined. 
 - Documentation for all the models is finished for the write up
 - TKINTER App is set up and ready to begin use. 
+
 #Finish Write Up and Finish Presentation:
 Description: 
+- The goal of this task is to finish up the TKINTER app.
+- The second goal of this task is to finish the write up.
+- The other major goal is to start and finish the presentation based off the final write up. 
 
 Acceptance Criteria: 
-
+- Write up, App, and presentation finished
