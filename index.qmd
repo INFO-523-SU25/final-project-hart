@@ -37,7 +37,7 @@ This project is special to me as I have had the unfortunate experience of having
 # Map of Analysis Area: 
 
 The surrounding colonies to the Twin Cities, also known as MSP, are the only region where the data is valid. Since the airport is located in the heart of the twin cities this analysis will only encompass the counties shown in the map below:
-TODO: Add map
+![County Map](images/MN-counties.png "Picture of Applicable Counties")
 The counties were selected on a region selection basis. To properly select the region where the data is valid I drew a 60 mile circle around the MSP airport and selected any counties within that region. 60 miles was chosen to give me both ample data but also only have roughly an hour drive from the airport as I felt that was an applicable size. 
 
 # Section Definitions:
@@ -46,26 +46,86 @@ In this write-up, there will be 6 main sections, Intro, Dataset and Feature Engi
 
 ## DataSet and Feature Engineering
 
-TODO: Add FE here.
+# DataSet Description
+I have 2 raw datasets that I have gathered in trying to answer these questions. The 1st data set found in this repo at [NOAA Data](https://github.com/INFO-523-SU25/final-project-hart/blob/main/data/storm_data_search_results.csv)* is the historical data of every tornado that has been reported  as far back as 1952. This data contains the relevant county, data, and tornado information, to allow me to filter and clean the data to compare to the 2nd data set I will be using. The 2nd data set found in this repo at [API Daily Data](https://github.com/INFO-523-SU25/final-project-hart/blob/main/data/mn_weather_data.csv)* is the historical daily weather data measured at MSP International Airport as far back as 2000. This data contains daily weather information that I will be training my regression models against to hopefully predict tornado formation. The combination** of these datasets can be found in this repo at [Combined Data](https://github.com/INFO-523-SU25/final-project-hart/blob/main/data/tornado_days.csv)*. The combined dataset is 
+
+# Feature Engineering
+This data will need a few more columns. Namely I will need to Feature Engineer a column for tornado_occurred. This column will simply be boolean represented as an integer that is true if a tornado occurred on that day in an applicable county. Another column I will need TODO: More Here
+
+* for more information on what is contained in the dataset plese go to [Data Dictionary](https://github.com/INFO-523-SU25/final-project-hart/blob/main/data/README.md)
+The dataset I am going to be using is a combination of the NOAA tornado archives data and the daily weather open-meteo API data. 
+
+** for more detailed information about the merge process look in my proposal at [Proposal Link](https://github.com/INFO-523-SU25/final-project-hart/blob/main/proposal.qmd)
+
+```{python}
+
+InitialDS = pd.read_csv('data/tornado_days.csv')
+
+```
 
 ## Exploratory Data Analysis (EDA)
 
-'''{python}
+```{python}
+def UnivariateAnalysis(df, column = None):
+    """
+    Perform univariate analysis on the dataset.
+    This function displays descriptive statistics 
+    and creates the appropriate plot for both 
+    numerical and categorical variables.
+    """
+    if column != None:
+        numeric_columns = column
+    else:
+        numeric_columns = df.select_dtypes(include=[np.number]).columns.tolist()  # Get numeric columns for plotting
+    # print(f"Numeric columns in {df} dataset:", numeric_columns)  # Print the list of numeric
+    for data in numeric_columns:
+        print(df[data].describe())  # Display descriptive statistics for each numeric column
+        sns.histplot(data=df, x=data, bins=30).set_title(f'Distribution of {data}')
+        plt.show()  # Display the histogram for each numeric column
 
-'''
+    if column != None:
+        categorical_columns = column
+    else:
+        categorical_columns = df.select_dtypes(exclude=[np.number]).columns.tolist()  # Get numeric columns for plotting
+    # print(f"Categoric columns in {df} dataset:", categorical_columns)  # Print the list of categoric
+    for data in categorical_columns:
+        print(df[data].describe())  # Display descriptive statistics for each categoric column
+        sns.countplot(data=df, x=data).set_title(f'Count of {data}')
+        plt.xticks(rotation=45)  # Rotate x-axis labels for better readability
+        plt.tight_layout()  # Adjust layout to prevent label overlap
+        plt.show()  # Display the count plot for each categoric column
+
+#Down selected to a few interesting columns
+sns.pairplot(data=InitialDS, x_vars=[], y_vars=[])
+
+# '''
+# Perform univariate analysis on the datasets.
+# '''
+UnivariateAnalysis(InitialDS)
+```
 TODO: Add EDA here.
 
 ## Model Creation and Tuning
 
+# Regression Model 1
+- **Model 1**
+  - 
 TODO: Add Model Creation here.
 TODO: Add Model Tuning here.
 
-## Results and Analysis
+```{python}
 
+```
+## Results and Analysis
+```{python}
+
+```
 TODO: Add Results here.
 TODO: Add Analysis here.
 
 ## App/Dashboard
+```{python}
 
+```
 TODO: Add App/Dashboard here.
 
