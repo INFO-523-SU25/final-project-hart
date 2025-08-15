@@ -62,6 +62,8 @@ The dataset I am going to be using is a combination of the NOAA tornado archives
 # Here are the packages I need as of now to do basic dataset operations
 import numpy as np
 import pandas as pd
+import seaborn as sns
+import matplotlib as plt
 ```
 
 ```{python}
