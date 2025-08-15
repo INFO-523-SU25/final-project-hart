@@ -216,7 +216,7 @@ Can I build a model to predict tornado occurance given a daily weather
 
 ### Data Clean Up
 
-The tornado data has a lot of holes in a lot of its categories. For this analysis I really only need the date, county, and tornado statistics (fujita scale, width, length, etc.) in order to concatenate it to the daily weather data. The daily weather data will be mostly untouched as the data has no null values and contains all of the relevant necessary data. As such I will append the relevant tornado data to the weather data by date. 
+The tornado data has a lot of holes in a lot of its categories. For this analysis I really only need the date, county, and tornado statistics (fujita scale, width, length, etc.) in order to concatenate it to the daily weather data. The daily weather data will be mostly untouched as the data has no null values and contains all of the relevant necessary data. As such I will append the relevant tornado data to the weather data by date.   
 ```{python}
 #| label: load-dataset
 #| message: false
