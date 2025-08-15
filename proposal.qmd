@@ -210,9 +210,9 @@ My plan is to use ths to get the conditions on days where tornados occurred. Thi
 
 ### Questions
 
-Can I classify the weather conditions of different major weather events using daily data (i.e. Can I say this weather is indicitave of a sunny day, or severe thurnderstorm, or drizzling)
+1. Can I classify the weather conditions of different major weather events using daily data (i.e. Can I say this weather is indicitave of a sunny day, or severe thurnderstorm, or drizzling)
 
-Can I build a model to predict tornado occurance given a daily weather 
+2. Can I build a model to predict tornado occurance given a daily weather 
 
 ### Data Clean Up
 
@@ -261,62 +261,74 @@ MergeFiltRaw.head()
 | 3.5     | 8/14->8/17 | Tune and Validate Classification and Regression and Add to Write Up | Not Started | 8/15          |
 | 4       | 8/18->8/20 | Finish Write Up and Finish Presentation                             | Not Started | 8/19          |
 
-##Course of Action
-#Search and Find Data:
+## Course of Action
+
+# Search and Find Data:
+
 Description: 
 - The goal of this task is to find relevent data and to define the relevant questions. 
 - In this task I want to find data on tornadoes in the state of MN and data on daily weather patterns in the Twin Cities. 
 - Once I find this data, I want tp add it to the repo and begin the planning to get the proposal started and start the data dictionary.
+
 Acceptance Criteria: 
 - Data sets sourced and README Data Dictionary drafted out. 
 - Data added to repo with relevant supporting data. 
 - (Something New) Use API to source daily weather data. 
 
-#Create Proposal and Load and Make Data Dict and Clean Data:
+# Create Proposal and Load and Make Data Dict and Clean Data:
+
 Description: 
 - The goal of this task is to create the drafted proposal and make the corresponding data dictionary for the README and proposal respectively.
 - I want to load in and clean the data to only the relevant parameters that I need.
--- The columns I want specifically are all the daily weather data and the tornadoes from 2020-2025 in the surrounding counties to the twin cities.
+	- The columns I want specifically are all the daily weather data and the tornadoes from 2020-2025 in the surrounding counties to the twin cities.
 - Define New Features (I want a feature for did tornado occur, I want a feature for major storms as well) 
+
 Acceptance Criteria: 
 - Data Loaded and Merged
 - Data columns scrubbed for relevant data and missing data resolved
 - Data Dictionary finished
 - Data Features Defined
 
-#Perform EDA and Create Engineering Features and Start Write Up:
+# Perform EDA and Create Engineering Features and Start Write Up:
+
 Description: 
 - The goal of this task is to Create the features listed previously. 
 - Once the features are created I want to do I primary EDA using seaborn/matlab plots.
--- Document my findings from this EDA so that I can put those findings in my write up.
+	- Document my findings from this EDA so that I can put those findings in my write up.
+
 Acceptance Criteria: 
 - Features created
 - EDA performed and documented 200 ish words of different observations
 
-#Create Models and Examine Measures of Accuracy and Add to Write Up:
+# Create Models and Examine Measures of Accuracy and Add to Write Up:
+
 Description: 
 - The goal of this task is to create an OLS model as a baseline based off PCA or other reduction techniques.
 - From there I want to examine how accurate the model is by examining the R^2 scores and MSE
 - I want to look at other scores potentially like the F1 score or ROC-AUC.
 - I want to also do some preliminary looks at implementing Ridge Regression and Lasso Regression with cross validation
+
 Acceptance Criteria: 
 - OLS Model Created and fit examined and documented for write up. 
 - Implement scores like F1 and ROC-AUC
 - Start Implementation of Ridge and Lasso Regression
 
-#Tune and Validate Classification and Regression and Add to Write Up:
+# Tune and Validate Classification and Regression and Add to Write Up:
+
 Description: 
 - The goal of this task is to finish of the Ridge and Lasso from the previous task.
 - From there I want to examine measures of fit and see how well it fits using similar scoring to previous tasks
 - I want to add all of the measures of fit to the write up.
 - Start app using TKINTER
--- The app will use the best fiting model coeffecients to estimate if a tornado is likely given things like Precipitation, CAPE, Surface Pressure, Temp, etc. 
+	- The app will use the best fiting model coeffecients to estimate if a tornado is likely given things like Precipitation, CAPE, Surface Pressure, Temp, etc. 
+
 Acceptance Criteria: 
 - Lasso and Ridge regressions finished and examined. 
 - Documentation for all the models is finished for the write up
 - TKINTER App is set up and ready to begin use. 
 
-#Finish Write Up and Finish Presentation:
+# Finish Write Up and Finish Presentation:
+
 Description: 
 - The goal of this task is to finish up the TKINTER app.
 - The second goal of this task is to finish the write up.
@@ -326,6 +338,7 @@ Acceptance Criteria:
 - Write up, App, and presentation finished
 
 ### Repo Organization
+
 -   **.github/:** specifically designated for GitHub-related files, including workflows, actions, and templates customized for managing issues.
 
 -   **\_extra/:** dedicated to storing miscellaneous files that do not categorically align with other project sections, serving as a versatile repository for various supplementary documents.
