@@ -34,7 +34,7 @@ from retry_requests import retry
 callAPIbool = False
 ```
 
-### Dataset
+# Dataset
 First and foremost I chose this project as I have recently had some friends effected by tornados in the state of MN. Since there is a large amount of weather data publically available, I thought the data would be easy to source and models already exists as a baseline to use. I think this will allow me to focus on the ML part of the course rather than the data preprocessing which is a new area to me. Furthermore, I think there are some good classification questions about how to classify weather based on basic data and some good regression questions about can I predict tornadoes occurence based on this basic daily weather data. 
 As of now I have 2 datasets the first is the historical archive of tornadows in MN from as far back as the 1950's it contains the day of the Tornado as well as relative size/damage that was in its path. It has 38 columns which can be seen with the head command below:
 
@@ -209,13 +209,13 @@ My plan is to use ths to get the conditions on days where tornados occurred. Thi
 | EPISODE_NARRATIVE   | Sentence | The episode narrative depicting the general nature and overall activity of the episode. The narrative is created by NWS. | None | 
 | EVENT_NARRATIVE     | Sentence | The event narrative provides more specific details of the individual event. The event narrative is provided by NWS. | None |
 
-### Questions
+# Questions
 
 1. Can I classify the weather conditions of different major weather events using daily data (i.e. Can I say this weather is indicitave of a sunny day, or severe thurnderstorm, or drizzling)
 
 2. Can I build a model to predict tornado occurance given a daily weather 
 
-### Data Clean Up
+# Data Clean Up
 
 The tornado data has a lot of holes in a lot of its categories. For this analysis I really only need the date, county, and tornado statistics (fujita scale, width, length, etc.) in order to concatenate it to the daily weather data. The daily weather data will be mostly untouched as the data has no null values and contains all of the relevant necessary data. As such I will append the relevant tornado data to the weather data by date.   
 ```{python}
@@ -251,7 +251,7 @@ print(MergeFiltRaw.info())
 MergeFiltRaw.head()
 ```
 
-### Analysis plan
+# Analysis plan
 
 | Week    | Dates 	   |                              Tasks                                  |   Status    | Date Finished |
 |---------|:-----------|--------------------------------------------------------------------:|:------------|:--------------|
@@ -264,7 +264,7 @@ MergeFiltRaw.head()
 
 ## Course of Action
 
-# Search and Find Data:
+### Search and Find Data:
 
 Description: 
 
@@ -282,7 +282,7 @@ Acceptance Criteria:
 
 * (Something New) Use API to source daily weather data. 
 
-# Create Proposal and Load and Make Data Dict and Clean Data:
+### Create Proposal and Load and Make Data Dict and Clean Data:
 
 Description: 
 
@@ -304,7 +304,7 @@ Acceptance Criteria:
 
 * Data Features Defined
 
-# Perform EDA and Create Engineering Features and Start Write Up:
+### Perform EDA and Create Engineering Features and Start Write Up:
 
 Description: 
 
@@ -320,7 +320,7 @@ Acceptance Criteria:
 
 * EDA performed and documented 200 ish words of different observations
 
-# Create Models and Examine Measures of Accuracy and Add to Write Up:
+### Create Models and Examine Measures of Accuracy and Add to Write Up:
 
 Description:
 
@@ -340,7 +340,7 @@ Acceptance Criteria:
 
 * Start Implementation of Ridge and Lasso Regression
 
-# Tune and Validate Classification and Regression and Add to Write Up:
+### Tune and Validate Classification and Regression and Add to Write Up:
 
 Description: 
 
@@ -362,7 +362,7 @@ Acceptance Criteria:
 
 * TKINTER App is set up and ready to begin use. 
 
-# Finish Write Up and Finish Presentation:
+### Finish Write Up and Finish Presentation:
 
 Description: 
 
@@ -376,7 +376,7 @@ Acceptance Criteria:
 
 * Write up, App, and presentation finished
 
-### Repo Organization
+# Repo Organization
 
 -   **.github/:** specifically designated for GitHub-related files, including workflows, actions, and templates customized for managing issues.
 
