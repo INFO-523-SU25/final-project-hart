@@ -22,14 +22,14 @@ jupyter: python3
 ```{python}
 #| label: load-pkgs
 #| message: false
-#| Here are the packages I need as of now to query the API and do pasic dataset operations
+# Here are the packages I need as of now to query the API and do pasic dataset operations
 import numpy as np
 import pandas as pd
 import openmeteo_requests
 import requests_cache
 from retry_requests import retry
 
-#| Here is a boolean to regenerate the call to the API in case I want to query more data
+# Here is a boolean to regenerate the call to the API in case I want to query more data
 callAPIbool = False
 ```
 
@@ -40,7 +40,7 @@ As of now I have 2 datasets the first is the historical archive of tornadows in 
 ```{python}
 #| label: load-dataset
 #| message: false
-#| Here is the function to call the Open-Meteo API to get daily weather data
+# Here is the function to call the Open-Meteo API to get daily weather data
 def callDailyWeatherAPI(): 
 	# Setup the Open-Meteo API client with cache and retry on error
 	cache_session = requests_cache.CachedSession('.cache', expire_after = -1)
@@ -220,7 +220,7 @@ The tornado data has a lot of holes in a lot of its categories. For this analysi
 ```{python}
 #| label: load-dataset
 #| message: false
-#| Here is the function to clean up the dataset and save it
+# Here is the function to clean up the dataset and save it
 
 CleanRaw = HistoricRaw[['CZ_NAME_STR', 'BEGIN_DATE', 'TOR_F_SCALE', 'TOR_LENGTH', 'TOR_WIDTH']]
 CleanRaw['CZ_NAME_STR'] = CleanRaw['CZ_NAME_STR'].astype(str)
