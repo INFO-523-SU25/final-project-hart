@@ -134,8 +134,6 @@ HistoricRaw.head()
 HistoricRaw.info()
 HistoricRaw.isna().sum()
 ```
-'WeatherRaw.head()
-'WeatherRaw.info()
 Looking at the data it seems like a lot of the data is not filled in or defaulted with zeros. This is due to the many sources of data. In my case I think this is ok as I am really using it as a query to the conditions of the day. An important note is that this contains all the Tonado data for MN. Since I only have weather data for the twin cities I will filter it out later to only the surrounding counties.
 
 [![Image of Minnesota](images/Screenshot 2025-08-10 170556.png "Minnesota Map")]
@@ -210,12 +208,20 @@ My plan is to use ths to get the conditions on days where tornados occurred. Thi
 | EPISODE_NARRATIVE   | Sentence | The episode narrative depicting the general nature and overall activity of the episode. The narrative is created by NWS. | None | 
 | EVENT_NARRATIVE     | Sentence | The event narrative provides more specific details of the individual event. The event narrative is provided by NWS. | None |
 
-
 ### Questions
 
 Can I classify the weather conditions of different major weather events using daily data (i.e. Can I say this weather is indicitave of a sunny day, or severe thurnderstorm, or drizzling)
 
 Can I build a model to predict tornado occurance given a daily weather 
+
+### Data Clean Up
+```{python}
+#| label: load-dataset
+#| message: false
+#| Here is the function to clean up the dataset and save it
+
+
+```
 
 ### Analysis plan
 
