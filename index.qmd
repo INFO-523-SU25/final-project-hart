@@ -107,12 +107,12 @@ def UnivariateAnalysis(df, column = None):
         plt.show()  # Display the count plot for each categoric column
 
 #Down selected to a few interesting columns
-sns.pairplot(data=InitialDS, x_vars=[], y_vars=[])
+# sns.pairplot(data=InitialDS, x_vars=[], y_vars=[])
 
 # '''
 # Perform univariate analysis on the datasets.
 # '''
-UnivariateAnalysis(InitialDS)
+# UnivariateAnalysis(InitialDS)
 ```
 TODO: Add EDA here.
 
