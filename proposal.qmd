@@ -299,9 +299,9 @@ Acceptance Criteria:
 
 -   **\_freeze/:** houses frozen environment files that contain detailed information about the project's environment setup and dependencies.
 
-- **\_analysis/:** Contains the jupyter notebooks of our analysis plan of the project.
-
 -   **data/:** designated for storing essential data files crucial for the project's operations, including input files, datasets, and other vital data resources.
+
+-   **data_dictionary/:** designated as a place to put supplemental documentation that I have used/ that has been helpful
 
 -   **images/:** functioning as a central repository for visual assets utilized across the project, such as diagrams, charts, and screenshots, this directory houses essential visual components essential for project documentation and presentation purposes.
 
@@ -314,8 +314,6 @@ Acceptance Criteria:
 -   **index.qmd:** serves as the main page for our project, where our write up will eventually be. This Quarto file offers in-depth descriptions of our project, encompassing all code and visualizations, as well as eventually our results.
 
 -   **presentation.qmd:** serves as a Quarto file that will present our slideshow of our final results of our project. 
-
--   **project-final.Rproj:** 
 
 -   **proposal.qmd:** designed as the Quarto file responsible for our project proposal, housing our dataset, metadata, description, and questions, as well as our weekly plan of attack that will be updated weekly. 
 
