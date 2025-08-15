@@ -3,6 +3,8 @@
   
 -   **[storm_data_search_results]**: Historical tornado data dating back to the 1950's from the US NOAA. The data contains all of the data for every reported tornado in the state of Minnesota. For the purposes of this analysis the data will only be used corresponding to available daily data 2020-2025. If more data is needed I will update this!
 
+-   **[tornado_days]**: Data of daily weather data from days of tornadoes. This data is a comination of the other two data sources. 
+
 # Codebook for [mn_weather_data] Dataset
 
 |        Variable Names       |Data Types| Description | Unit |
@@ -16,8 +18,8 @@
 | rain_sum                    | Float    | Sum of daily rain | (mm) |
 | snowfall_sum                | Float    | Sum of daily snowfall | (cm) |
 | wind_speed_10m_max          | Float    | Maximum wind speed on a day | (mph) | 
-| wind_gusts_10m_max	        | Float    | Maximum wind gusts on a day | (mph) |
-| wind_direction_10m_dominant	| Float    | Dominant wind direction | (°) |
+| wind_gusts_10m_max	      | Float    | Maximum wind gusts on a day | (mph) |
+| wind_direction_10m_dominant | Float    | Dominant wind direction | (°) |
 | dew_point_2m_mean	          | Float    | Mean daily dew point at 2 meters above ground | () |
 | dew_point_2m_max	          | Float    | Maximum daily dew point at 2 meters above ground | () |
 | dew_point_2m_min	          | Float    | Minimum daily dew point at 2 meters above ground | () |
