@@ -24,12 +24,25 @@ TODO: Add project abstract here.
 
 ## Intro
 
-The primary goal of this 
+The primary goal of this project is to use publically available daily weather data to form relationships with NOAA records of tornado formation. This is crucial because unlike hurricanes which have a longer warning timeline, tornadoes are often learned about shortly before they occur. This can cause more extreme damage as people do not have time to secure crucial belongins or themselves in a non-affected area. Daily weather forecast are available and usually a part of every person's daily life. Whether that be through a weather app or the news this publically available data could be potentially utilized to help warn/inform people of the chance of tornado occurring in their areas. One approach to this problem is to create regression models such as, Lasso, Ridge, and Random Forest using polynomial features. TODO: More Here
+
+This project is special to me as I have had the unfortunate experience of having friends and families lives be altered by unexpected tornados. Because of this I am going to focus my analysis to the Twin Cities area, pictured in the Map of Analysis Area Section. This means I will focus my analysis to the surrounding counties and weather data from the Mineapolis-Saint Paul, MSP, airport.  This has lead me to two try and answer the two questions seen below in the Questions section. 
+
 # Questions: 
 
 1. Can I develop a model that successfully predicts which days tornado formation will occur using daily weather data for the Twin Cities area? 
 
 2. Can I create a GUI/dashboard to quickly allow users to tune/view predictions. 
+
+# Map of Analysis Area: 
+
+The surrounding colonies to the Twin Cities, also known as MSP, are the only region where the data is valid. Since the airport is located in the heart of the twin cities this analysis will only encompass the counties shown in the map below:
+TODO: Add map
+The counties were selected on a region selection basis. To properly select the region where the data is valid I drew a 60 mile circle around the MSP airport and selected any counties within that region. 60 miles was chosen to give me both ample data but also only have roughly an hour drive from the airport as I felt that was an applicable size. 
+
+# Section Definitions:
+
+In this write-up, there will be 6 main sections, Intro, Dataset and Feature Engineering, Exploratory Data Analysis, Model Creation and Tuning, Results and Analysis, and App/Dashboard. In the Intro section I have identified the purpose, scope and major questions I intend to try and answer. In the Dataset and Feature Engineering section I will discuss the cleaned up dataset with the engineered features pertinent to the future model creation and analysis. In the Ecploratory Data Analysis Section, I will show plots pertaining to the variable of interest as well as comment on different relationships I noticed in a primary analysis. In the Model Creation and Tuning section I will discuss why I chose each model and the corresponding cross validation I used to validate/make the most representative model possible. In the Results and Analysis section, I will show analysis results and plots as well as discuss the results of the model tuning and cross validation. Laslty I will attempt to collate those results into a dashboard for user interfacing and quick use to inform of tornado creation. 
 
 ## DataSet and Feature Engineering
 
@@ -37,24 +50,19 @@ TODO: Add FE here.
 
 ## Exploratory Data Analysis (EDA)
 
-'''
+'''{python}
+
 '''
 TODO: Add EDA here.
 
-## Model Creation
+## Model Creation and Tuning
 
 TODO: Add Model Creation here.
-
-## Model Tuning
-
 TODO: Add Model Tuning here.
 
-## Results
+## Results and Analysis
 
 TODO: Add Results here.
-
-## Analysis
-
 TODO: Add Analysis here.
 
 ## App/Dashboard
