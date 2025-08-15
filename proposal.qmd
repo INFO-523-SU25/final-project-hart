@@ -256,6 +256,7 @@ MergeRaw.to_csv('data/tornado_days.csv')
 
 NewFeatureRaw = MergeRaw.copy()
 NewFeatureRaw['tornado_occurred'] = NewFeatureRaw['TOR_F_SCALE'].apply(lambda x: 1 if pd.notna(x) else 0)
+NewFeatureRaw['time_of_year'] = NewFeatureRaw['date'].dt.month
 # NewFeatureRaw.info()
 NewFeatureRaw.head()
 ```
@@ -264,6 +265,7 @@ NewFeatureRaw.head()
 ```{python}
 #| label: eda
 #| message: false 
+# Perform EDA on the dataset
 
 def UnivariateAnalysis(df, column = None):
     """
@@ -295,13 +297,17 @@ def UnivariateAnalysis(df, column = None):
         plt.show()  # Display the count plot for each categoric column
 
 #Down selected to a few interesting columns
-sns.pairplot(data=NewFeatureRaw, x_vars=['temperature_2m_mean', 'precipitation_sum', 'dew_point_2m_mean', 'wind_direction_10m_dominant', 'surface_pressure_mean', 'wind_gusts_10m_max', 'wind_speed_10m_max', 'date', 'relative_humidity_2m_mean'], y_vars=['tornado_occurred'])
+sns.pairplot(data=NewFeatureRaw, x_vars=['temperature_2m_mean', 'precipitation_sum', 'dew_point_2m_mean', 'wind_direction_10m_dominant', 'surface_pressure_mean', 'wind_gusts_10m_max', 'wind_speed_10m_max', 'date', 'relative_humidity_2m_mean', 'time_of_year'], y_vars=['tornado_occurred'])
+plt.show()
+sns.pairplot(data=NewFeatureRaw, x_vars=['temperature_2m_mean', 'precipitation_sum', 'dew_point_2m_mean', 'wind_direction_10m_dominant', 'surface_pressure_mean', 'wind_gusts_10m_max', 'wind_speed_10m_max', 'relative_humidity_2m_mean', 'tornado_occurred', 'time_of_year'], y_vars=['date'])
+plt.show()
+sns.pairplot(data=NewFeatureRaw, x_vars=['temperature_2m_mean', 'precipitation_sum', 'dew_point_2m_mean', 'wind_direction_10m_dominant', 'surface_pressure_mean', 'wind_gusts_10m_max', 'wind_speed_10m_max', 'relative_humidity_2m_mean', 'tornado_occurred', 'date'], y_vars=['time_of_year'])
 plt.show()
 
 # '''
 # Perform univariate analysis on the datasets.
 # '''
-UnivariateAnalysis(NewFeatureRaw)
+# UnivariateAnalysis(NewFeatureRaw)
 ```
 
 # Questions
