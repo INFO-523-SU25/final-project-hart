@@ -56,8 +56,17 @@ This data will need a few more columns. Namely I will need to Feature Engineer a
 The dataset I am going to be using is a combination of the NOAA tornado archives data and the daily weather open-meteo API data. 
 
 ** for more detailed information about the merge process look in my proposal at [Proposal Link](https://github.com/INFO-523-SU25/final-project-hart/blob/main/proposal.qmd)
+```{python}
+#| label: load-pkgs
+#| message: false
+# Here are the packages I need as of now to do basic dataset operations
+import numpy as np
+import pandas as pd
+```
 
 ```{python}
+#| label: clean-data
+#| message: false
 
 TornadoDays = pd.read_csv('data/tornado_days.csv')
 
