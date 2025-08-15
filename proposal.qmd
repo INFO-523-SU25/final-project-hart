@@ -147,7 +147,7 @@ It is 20 * 1827 different daily weather data coming out of MSP international air
 'HistoricRaw.info()
 My plan is to use ths to get the conditions on days where tornados occurred. This will be were most of the model data is derived from. A data dictionary can be seen in the data/README.md or below: 
 
-## Codebook for [mn_weather_data] Dataset
+### Codebook for [mn_weather_data] Dataset
 
 |        Variable Names       |Data Types| Description | Unit |
 |-----------------------------|----------|-------------|------|
@@ -172,7 +172,7 @@ My plan is to use ths to get the conditions on days where tornados occurred. Thi
 | surface_pressure_max	      | Float    | Maximum daily pressure at surface | () |
 | surface_pressure_min        | Float    | Minimum daily daily pressure at surface | () |
 
-## Codebook for [storm_data_search_results] Dataset
+### Codebook for [storm_data_search_results] Dataset
 
 |    Variable Names   |       Data Types      | Description |  Unit |
 |---------------------|-----------------------|-------------|-------|
@@ -215,7 +215,7 @@ My plan is to use ths to get the conditions on days where tornados occurred. Thi
 
 2. Can I build a model to predict tornado occurance given a daily weather 
 
-# Data Clean Up
+### Data Clean Up
 
 The tornado data has a lot of holes in a lot of its categories. For this analysis I really only need the date, county, and tornado statistics (fujita scale, width, length, etc.) in order to concatenate it to the daily weather data. The daily weather data will be mostly untouched as the data has no null values and contains all of the relevant necessary data. As such I will append the relevant tornado data to the weather data by date.   
 ```{python}
@@ -262,9 +262,9 @@ MergeFiltRaw.head()
 | 3.5     | 8/14->8/17 | Tune and Validate Classification and Regression and Add to Write Up | Not Started | 8/15          |
 | 4       | 8/18->8/20 | Finish Write Up and Finish Presentation                             | Not Started | 8/19          |
 
-## Course of Action
+### Course of Action
 
-### Search and Find Data:
+#### Search and Find Data:
 
 Description: 
 
@@ -282,7 +282,7 @@ Acceptance Criteria:
 
 * (Something New) Use API to source daily weather data. 
 
-### Create Proposal and Load and Make Data Dict and Clean Data:
+#### Create Proposal and Load and Make Data Dict and Clean Data:
 
 Description: 
 
@@ -304,7 +304,7 @@ Acceptance Criteria:
 
 * Data Features Defined
 
-### Perform EDA and Create Engineering Features and Start Write Up:
+#### Perform EDA and Create Engineering Features and Start Write Up:
 
 Description: 
 
@@ -320,7 +320,7 @@ Acceptance Criteria:
 
 * EDA performed and documented 200 ish words of different observations
 
-### Create Models and Examine Measures of Accuracy and Add to Write Up:
+#### Create Models and Examine Measures of Accuracy and Add to Write Up:
 
 Description:
 
@@ -340,7 +340,7 @@ Acceptance Criteria:
 
 * Start Implementation of Ridge and Lasso Regression
 
-### Tune and Validate Classification and Regression and Add to Write Up:
+#### Tune and Validate Classification and Regression and Add to Write Up:
 
 Description: 
 
@@ -362,7 +362,7 @@ Acceptance Criteria:
 
 * TKINTER App is set up and ready to begin use. 
 
-### Finish Write Up and Finish Presentation:
+#### Finish Write Up and Finish Presentation:
 
 Description: 
 
