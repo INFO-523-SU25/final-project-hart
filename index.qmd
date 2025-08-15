@@ -119,8 +119,8 @@ TODO: Add EDA here.
 ## Model Creation and Tuning
 
 # Regression Model 1
-- **Model 1**
-  - 
+* **Model 1**
+  * 
 TODO: Add Model Creation here.
 TODO: Add Model Tuning here.
 
@@ -132,6 +132,7 @@ TODO: Add Model Tuning here.
 
 ```
 TODO: Add Results here.
+
 TODO: Add Analysis here.
 
 ## App/Dashboard
