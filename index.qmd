@@ -21,3 +21,38 @@ jupyter: python3
 ## Abstract
 
 TODO: Add project abstract here.
+
+## Intro
+
+TODO: Add project Intro here.
+
+## Exploratory Data Analysis (EDA)
+
+'''
+'''
+TODO: Add EDA here.
+
+## Feature Engineering
+
+TODO: Add FE here.
+
+## Model Creation
+
+TODO: Add Model Creation here.
+
+## Model Tuning
+
+TODO: Add Model Tuning here.
+
+## Results
+
+TODO: Add Results here.
+
+## Analysis
+
+TODO: Add Analysis here.
+
+## App/Dashboard
+
+TODO: Add App/Dashboard here.
+
