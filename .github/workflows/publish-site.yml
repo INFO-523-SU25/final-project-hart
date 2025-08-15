@@ -32,11 +32,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Install Missing Packages
-        run: |
-          missing = checklist::install_missing_pkgs(dir = "./", glob = "*.qmd")
-        shell: Rscript {0}
-
       - name: Install Python Packages
         run: |
           if [ -f requirements.txt ]; then
