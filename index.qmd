@@ -24,17 +24,22 @@ TODO: Add project abstract here.
 
 ## Intro
 
-TODO: Add project Intro here.
+The primary goal of this 
+# Questions: 
+
+1. Can I develop a model that successfully predicts which days tornado formation will occur using daily weather data for the Twin Cities area? 
+
+2. Can I create a GUI/dashboard to quickly allow users to tune/view predictions. 
+
+## DataSet and Feature Engineering
+
+TODO: Add FE here.
 
 ## Exploratory Data Analysis (EDA)
 
 '''
 '''
 TODO: Add EDA here.
-
-## Feature Engineering
-
-TODO: Add FE here.
 
 ## Model Creation
 
