@@ -252,9 +252,9 @@ MergeFiltRaw.head()
 |---------|:-----------|--------------------------------------------------------------------:|:------------|:--------------|
 | 1       | 7/28->8/1  | Search and Find Data                                                | Complete    | 8/1           |
 | 2       | 8/4->8/8   | Create Proposal and Load and Make Data Dict and Clean Data          | Complete    | 8/11          |
-| 2.5     | 8/7->8/10  | Perform EDA and Create Engineering Features and Start Write Up      | In Progress | 8/12          |
-| 3       | 8/11->8/13 | Create Models and Examine Measures of Accuracy and Add to Write Up  | Not Started |               |
-| 3.5     | 8/14->8/17 | Tune and Validate Classification and Regression and Add to Write Up | Not Started |               |
+| 2.5     | 8/7->8/10  | Perform EDA and Create Engineering Features and Start Write Up      | Complete    | 8/15          |
+| 3       | 8/11->8/13 | Create Models and Examine Measures of Accuracy and Add to Write Up  | Complete    | 8/15          |
+| 3.5     | 8/14->8/17 | Tune and Validate Classification and Regression and Add to Write Up | Not Started | 8/15          |
 | 4       | 8/18->8/20 | Finish Write Up and Finish Presentation                             | Not Started | 8/19          |
 
 ##Course of Action
