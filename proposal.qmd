@@ -26,6 +26,8 @@ jupyter: python3
 # Here are the packages I need as of now to query the API and do pasic dataset operations
 import numpy as np
 import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 import openmeteo_requests
 import requests_cache
 from retry_requests import retry
@@ -36,7 +38,7 @@ callAPIbool = False
 
 # Dataset
 First and foremost I chose this project as I have recently had some friends effected by tornados in the state of MN. Since there is a large amount of weather data publically available, I thought the data would be easy to source and models already exists as a baseline to use. I think this will allow me to focus on the ML part of the course rather than the data preprocessing which is a new area to me. Furthermore, I think there are some good classification questions about how to classify weather based on basic data and some good regression questions about can I predict tornadoes occurence based on this basic daily weather data. 
-As of now I have 2 datasets the first is the historical archive of tornadows in MN from as far back as the 1950's it contains the day of the Tornado as well as relative size/damage that was in its path. It has 38 columns which can be seen with the head command below:
+As of now I have 2 datasets the first is the historical archive of tornadows in MN from as far back as the 1950's it contains the day of the Tornado as well as relative size/damage that was in its path. It has 38 columns which can be seen in the sub section codebooks. 
 
 ```{python}
 #| label: load-dataset
@@ -120,24 +122,29 @@ def callDailyWeatherAPI():
 
 	WeatherRaw = pd.DataFrame(data = daily_data)
 	WeatherRaw.to_csv('data/mn_weather_data.csv')
-	print("\nDaily data\n", WeatherRaw)
+	# print("\nDaily data\n", WeatherRaw)
 
 if callAPIbool == True:
 	callDailyWeatherAPI()
 else: 
 	WeatherRaw = pd.read_csv("data/mn_weather_data.csv")
-	WeatherRaw.head()
-	WeatherRaw.info()
-	WeatherRaw.isna().sum()
+	# WeatherRaw.head()
+	# WeatherRaw.info()
+	# WeatherRaw.isna().sum()
 
 HistoricRaw = pd.read_csv("data/storm_data_search_results.csv")
-HistoricRaw.head()
-HistoricRaw.info()
-HistoricRaw.isna().sum()
+# HistoricRaw.head()
+# HistoricRaw.info()
+# HistoricRaw.isna().sum()
 ```
 Looking at the data it seems like a lot of the data is not filled in or defaulted with zeros. This is due to the many sources of data. In my case I think this is ok as I am really using it as a query to the conditions of the day. An important note is that this contains all the Tonado data for MN. Since I only have weather data for the twin cities I will filter it out later to only the surrounding counties.
 
 [![Image of Minnesota](images/Screenshot 2025-08-10 170556.png "Minnesota Map")]
+
+An image of the counties I am going to pick can be seen below:
+
+[![Image of Minnesota Counties](images/MN_counties "Selected Counties Map")]
+
 
 A full data dictionary can be seen in the csv for the storm data export located at data_dictionaries/Storm-Data-Export.pdf. These will eventualy be transcribed to the README.md files for each of the datasets
 
@@ -209,12 +216,6 @@ My plan is to use ths to get the conditions on days where tornados occurred. Thi
 | EPISODE_NARRATIVE   | Sentence | The episode narrative depicting the general nature and overall activity of the episode. The narrative is created by NWS. | None | 
 | EVENT_NARRATIVE     | Sentence | The event narrative provides more specific details of the individual event. The event narrative is provided by NWS. | None |
 
-# Questions
-
-1. Can I classify the weather conditions of different major weather events using daily data (i.e. Can I say this weather is indicitave of a sunny day, or severe thurnderstorm, or drizzling)
-
-2. Can I build a model to predict tornado occurance given a daily weather 
-
 ### Data Clean Up
 
 The tornado data has a lot of holes in a lot of its categories. For this analysis I really only need the date, county, and tornado statistics (fujita scale, width, length, etc.) in order to concatenate it to the daily weather data. The daily weather data will be mostly untouched as the data has no null values and contains all of the relevant necessary data. As such I will append the relevant tornado data to the weather data by date.   
@@ -230,26 +231,84 @@ FilteredRaw = CleanRaw.loc[CleanRaw['BEGIN_DATE'] > '2000-01-01']
 
 FilteredRaw['CZ_NAME_STR'] = FilteredRaw['CZ_NAME_STR'].apply(lambda x: x.strip(' CO.'))
 FilteredRaw = FilteredRaw.rename(columns={'BEGIN_DATE': 'date'})
-FilteredRaw.set_index('date')
-# FilteredRaw.head()
+counties_list = ['ANOKA', 'CARVER', 'CHISAGO', 'DAKOTA', 'HENNEPIN', 'ISTANTI', 'LE SUEUR', 'MCLEOD', 'MILLE LACS', 'RAMSEY', 'RICE', 'SCOTT', 'SHERBURNE', 'SIBLEY', 'WASHINGTON', 'WRIGHT']
+TornFin = FilteredRaw[FilteredRaw['CZ_NAME_STR'].isin(counties_list)]
+TornFin = TornFin.drop_duplicates(subset=['date', 'CZ_NAME_STR'], keep='first')
+# TornFin.info()
+# TornFin.head()
 
 Clean2Raw = WeatherRaw.copy()
 Clean2Raw['date'] = pd.to_datetime(Clean2Raw['date'])
 date = Clean2Raw['date'].dt.date
 Clean2Raw['date'] = date
 Clean2Raw['date'] = pd.to_datetime(Clean2Raw['date'])
-Clean2Raw.set_index('date')
-# Clean2Raw.info()
-# Clean2Raw.head()
+Filtered2Raw = Clean2Raw.loc[Clean2Raw['date'] > '2000-01-01']
+DailyFin = Filtered2Raw.drop_duplicates(subset=['date'], keep='first')
+# Filtered2Raw.info()
+# Filtered2Raw.head()
 
-MergeRaw = pd.merge(FilteredRaw, Clean2Raw, on='date')
+MergeRaw = pd.merge(TornFin, DailyFin, on='date', how='outer')
 MergeRaw = MergeRaw.drop('Unnamed: 0', axis=1)
-counties_list = ['ANOKA', 'CARVER', 'CHISAGO', 'DAKOTA', 'HENNEPIN', 'ISTANTI', 'LE SUEUR', 'MCLEOD', 'MILLE LACS', 'RAMSEY', 'RICE', 'SCOTT', 'SHERBURNE', 'SIBLEY', 'WASHINGTON', 'WRIGHT']
-MergeFiltRaw = MergeRaw[MergeRaw['CZ_NAME_STR'].isin(counties_list)]
-MergeFiltRaw.to_csv('data/tornado_days.csv')
-print(MergeFiltRaw.info())
-MergeFiltRaw.head()
+
+MergeRaw.to_csv('data/tornado_days.csv')
+# MergeRaw.info()
+# MergeRaw.head()
+
+NewFeatureRaw = MergeRaw.copy()
+NewFeatureRaw['tornado_occurred'] = NewFeatureRaw['TOR_F_SCALE'].apply(lambda x: 1 if pd.notna(x) else 0)
+# NewFeatureRaw.info()
+NewFeatureRaw.head()
 ```
+### Exploratory Data Analysis
+
+```{python}
+#| label: eda
+#| message: false 
+
+def UnivariateAnalysis(df, column = None):
+    """
+    Perform univariate analysis on the dataset.
+    This function displays descriptive statistics 
+    and creates the appropriate plot for both 
+    numerical and categorical variables.
+    """
+    if column != None:
+        numeric_columns = column
+    else:
+        numeric_columns = df.select_dtypes(include=[np.number]).columns.tolist()  # Get numeric columns for plotting
+    # print(f"Numeric columns in {df} dataset:", numeric_columns)  # Print the list of numeric
+    for data in numeric_columns:
+        print(df[data].describe())  # Display descriptive statistics for each numeric column
+        sns.histplot(data=df, x=data, bins=30).set_title(f'Distribution of {data}')
+        plt.show()  # Display the histogram for each numeric column
+
+    if column != None:
+        categorical_columns = column
+    else:
+        categorical_columns = df.select_dtypes(exclude=[np.number]).columns.tolist()  # Get numeric columns for plotting
+    # print(f"Categoric columns in {df} dataset:", categorical_columns)  # Print the list of categoric
+    for data in categorical_columns:
+        print(df[data].describe())  # Display descriptive statistics for each categoric column
+        sns.countplot(data=df, x=data).set_title(f'Count of {data}')
+        plt.xticks(rotation=45)  # Rotate x-axis labels for better readability
+        plt.tight_layout()  # Adjust layout to prevent label overlap
+        plt.show()  # Display the count plot for each categoric column
+
+#Down selected to a few interesting columns
+sns.pairplot(data=NewFeatureRaw, x_vars=['temperature_2m_mean', 'precipitation_sum', 'dew_point_2m_mean', 'wind_direction_10m_dominant', 'surface_pressure_mean', 'wind_gusts_10m_max', 'wind_speed_10m_max', 'date', 'relative_humidity_2m_mean'], y_vars=['tornado_occurred'])
+plt.show()
+
+# '''
+# Perform univariate analysis on the datasets.
+# '''
+UnivariateAnalysis(NewFeatureRaw)
+```
+
+# Questions
+
+1. Can I classify the weather conditions of different major weather events using daily data (i.e. Can I say this weather is indicitave of a sunny day, or severe thurnderstorm, or drizzling)
+
+2. Can I build a model to predict tornado occurance given a daily weather 
 
 # Analysis plan
 
