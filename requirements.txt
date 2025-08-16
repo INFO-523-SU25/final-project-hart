@@ -20,5 +20,5 @@ matplotlib
 seaborn
 
 # Application
-python-tk
+python3-tk
 
