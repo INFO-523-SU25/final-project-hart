@@ -11,9 +11,14 @@ retry_requests
 # Data Processing
 scikit-learn
 statsmodels
+numpy
+pandas
 
 
 # Data Visualization
 matplotlib
 seaborn
+
+# Application
+python-tk
 
