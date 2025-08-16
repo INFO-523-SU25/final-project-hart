@@ -249,8 +249,6 @@ DailyFin = Filtered2Raw.drop_duplicates(subset=['date'], keep='first')
 
 MergeRaw = pd.merge(TornFin, DailyFin, on='date', how='outer')
 MergeRaw = MergeRaw.drop('Unnamed: 0', axis=1)
-
-MergeRaw.to_csv('data/tornado_days.csv')
 # MergeRaw.info()
 # MergeRaw.head()
 
@@ -259,6 +257,7 @@ NewFeatureRaw['tornado_occurred'] = NewFeatureRaw['TOR_F_SCALE'].apply(lambda x:
 NewFeatureRaw['time_of_year'] = NewFeatureRaw['date'].dt.month
 # NewFeatureRaw.info()
 NewFeatureRaw.head()
+NewFeatureRaw.to_csv('data/tornado_days.csv')
 ```
 ### Exploratory Data Analysis
 
