@@ -37,7 +37,9 @@ This project is special to me as I have had the unfortunate experience of having
 # Map of Analysis Area: 
 
 The surrounding colonies to the Twin Cities, also known as MSP, are the only region where the data is valid. Since the airport is located in the heart of the twin cities this analysis will only encompass the counties shown in the map below:
+
 ![County Map](images/MN-counties.png "Picture of Applicable Counties")
+
 The counties were selected on a region selection basis. To properly select the region where the data is valid I drew a 60 mile circle around the MSP airport and selected any counties within that region. 60 miles was chosen to give me both ample data but also only have roughly an hour drive from the airport as I felt that was an applicable size. 
 
 # Section Definitions:
@@ -50,9 +52,14 @@ In this write-up, there will be 6 main sections, Intro, Dataset and Feature Engi
 I have 2 raw datasets that I have gathered in trying to answer these questions. The 1st data set found in this repo at [NOAA Data](https://github.com/INFO-523-SU25/final-project-hart/blob/main/data/storm_data_search_results.csv)* is the historical data of every tornado that has been reported  as far back as 1952. This data contains the relevant county, data, and tornado information, to allow me to filter and clean the data to compare to the 2nd data set I will be using. The 2nd data set found in this repo at [API Daily Data](https://github.com/INFO-523-SU25/final-project-hart/blob/main/data/mn_weather_data.csv)* is the historical daily weather data measured at MSP International Airport as far back as 2000. This data contains daily weather information that I will be training my regression models against to hopefully predict tornado formation. The combination** of these datasets can be found in this repo at [Combined Data](https://github.com/INFO-523-SU25/final-project-hart/blob/main/data/tornado_days.csv)*. The combined dataset is 
 
 # Feature Engineering
-This data will need a few more columns. Namely I will need to Feature Engineer a column for tornado_occurred. This column will simply be boolean represented as an integer that is true if a tornado occurred on that day in an applicable county. Another column I will need TODO: More Here
+This data will need a few more columns. Namely I will need to Feature Engineer a column for tornado_occurred. This column will simply be boolean represented as an integer that is true if a tornado occurred on that day in an applicable county. Another column I will need time_of_year. This column will represent the month the event occurred in. This is imoortant as tornadoes are seasonal in most of the United States. This will help find relationships and be a potential trainer of the model. 
 
-* for more information on what is contained in the dataset plese go to [Data Dictionary](https://github.com/INFO-523-SU25/final-project-hart/blob/main/data/README.md)
+| Variable | Type | Description | Unit |
+|----------|------|-------------|------|
+| tornado_occurred | Bool (Float) | Did a tornado occurr on this day (1 if yes, 0 if no) | None |
+| time_of_year | Int | The index of the month the event occurred | Month | 
+
+\* for more information on what is contained in the dataset plese go to [Data Dictionary](https://github.com/INFO-523-SU25/final-project-hart/blob/main/data/README.md)
 The dataset I am going to be using is a combination of the NOAA tornado archives data and the daily weather open-meteo API data. 
 
 ** for more detailed information about the merge process look in my proposal at [Proposal Link](https://github.com/INFO-523-SU25/final-project-hart/blob/main/proposal.qmd)
@@ -70,7 +77,7 @@ import matplotlib as plt
 #| label: clean-data
 #| message: false
 
-TornadoDays = pd.read_csv('data/tornado_days.csv')
+AllDaysWithTornados = pd.read_csv('data/tornado_days.csv')
 
 ```
 
@@ -107,7 +114,12 @@ def UnivariateAnalysis(df, column = None):
         plt.show()  # Display the count plot for each categoric column
 
 #Down selected to a few interesting columns
-# sns.pairplot(data=InitialDS, x_vars=[], y_vars=[])
+sns.pairplot(data=NewFeatureRaw, x_vars=['temperature_2m_mean', 'precipitation_sum', 'dew_point_2m_mean', 'wind_direction_10m_dominant', 'surface_pressure_mean', 'wind_gusts_10m_max', 'wind_speed_10m_max', 'date', 'relative_humidity_2m_mean', 'time_of_year'], y_vars=['tornado_occurred'])
+plt.show()
+sns.pairplot(data=NewFeatureRaw, x_vars=['temperature_2m_mean', 'precipitation_sum', 'dew_point_2m_mean', 'wind_direction_10m_dominant', 'surface_pressure_mean', 'wind_gusts_10m_max', 'wind_speed_10m_max', 'relative_humidity_2m_mean', 'tornado_occurred', 'time_of_year'], y_vars=['date'])
+plt.show()
+sns.pairplot(data=NewFeatureRaw, x_vars=['temperature_2m_mean', 'precipitation_sum', 'dew_point_2m_mean', 'wind_direction_10m_dominant', 'surface_pressure_mean', 'wind_gusts_10m_max', 'wind_speed_10m_max', 'relative_humidity_2m_mean', 'tornado_occurred', 'date'], y_vars=['time_of_year'])
+plt.show()
 
 # '''
 # Perform univariate analysis on the datasets.
