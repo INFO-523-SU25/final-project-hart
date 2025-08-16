@@ -70,7 +70,7 @@ The dataset I am going to be using is a combination of the NOAA tornado archives
 import numpy as np
 import pandas as pd
 import seaborn as sns
-import matplotlib as plt
+import matplotlib.pyplot as plt
 ```
 
 ```{python}

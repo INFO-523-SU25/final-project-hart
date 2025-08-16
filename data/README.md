@@ -5,7 +5,7 @@
 
 -   **[tornado_days]**: Data of daily weather data from days of tornadoes. This data is a comination of the other two data sources. 
 
-# Codebook for [mn_weather_data] Dataset
+## Codebook for [mn_weather_data] Dataset
 
 |        Variable Names       |Data Types| Description | Unit |
 |-----------------------------|----------|-------------|------|
@@ -30,7 +30,7 @@
 | surface_pressure_max	      | Float    | Maximum daily pressure at surface | () |
 | surface_pressure_min        | Float    | Minimum daily daily pressure at surface | () |
 
-# Codebook for [storm_data_search_results] Dataset
+## Codebook for [storm_data_search_results] Dataset
 
 |    Variable Names   |       Data Types      | Description |  Unit |
 |---------------------|-----------------------|-------------|-------|
@@ -66,3 +66,33 @@
 | END_LON             | Float | The longitude where the event ended | (°) |
 | EPISODE_NARRATIVE   | Sentence | The episode narrative depicting the general nature and overall activity of the episode. The narrative is created by NWS. | None | 
 | EVENT_NARRATIVE     | Sentence | The event narrative provides more specific details of the individual event. The event narrative is provided by NWS. | None |
+
+## Codebook for [tornado_days] Dataset
+
+|        Variable Names       |Data Types| Description | Unit |
+|-----------------------------|----------|-------------|------|
+| CZ_NAME_STR                 | String   | County/Parish, Zone or Marine Name assigned to the county FIPS number or NWS Forecast Zone | None |
+| BEGIN_DATE                  | Date     | Date the event was reported | MM-DD-YYYY |
+| TOR_F_SCALE                 | String   | Enhanced Fujita Scale describes the strength of the tornado based on the amount and type of damage caused by the tornado | Fujita Scale | 
+| TOR_LENGTH                  | Float    | Length of the tornado or tornado segment while on the ground | Miles |
+| TOR_WIDTH                   | Int      | Width of the tornado or tornado segment while on the ground | Yards |
+| date	                      | TimeDate | Data and Time of weather collection | (YYYY-MM-DD hh-mm-ss) |
+| weather_code                | Float    | The most severe weather condition on a given day | (WMO Code) |
+| temperature_2m_mean         | Float    | Mean daily air temperature at 2 meters above ground | (°F) |
+| temperature_2m_max          | Float    | Maximum daily air temperature at 2 meters above ground | (°F) |
+| temperature_2m_min          | Float    | Minimum daily air temperature at 2 meters above ground | (°F) |
+| precipitation_sum           | Float    | Sum of daily precipitation (including rain, showers and snowfall) | (mm) |
+| rain_sum                    | Float    | Sum of daily rain | (mm) |
+| snowfall_sum                | Float    | Sum of daily snowfall | (cm) |
+| wind_speed_10m_max          | Float    | Maximum wind speed on a day | (mph) | 
+| wind_gusts_10m_max	      | Float    | Maximum wind gusts on a day | (mph) |
+| wind_direction_10m_dominant | Float    | Dominant wind direction | (°) |
+| dew_point_2m_mean	          | Float    | Mean daily dew point at 2 meters above ground | () |
+| dew_point_2m_max	          | Float    | Maximum daily dew point at 2 meters above ground | () |
+| dew_point_2m_min	          | Float    | Minimum daily dew point at 2 meters above ground | () |
+| relative_humidity_2m_mean	  | Float    | Mean daily relative humidiity at 2 meters above ground | () |
+| relative_humidity_2m_max	  | Float    | Maximum daily relative humidity at 2 meters above ground | () |
+| relative_humidity_2m_min    | Float    | Minimum daily relative humidity at 2 meters above ground | () |
+| surface_pressure_mean	      | Float    | Mean daily pressure at surface | () |
+| surface_pressure_max	      | Float    | Maximum daily pressure at surface | () |
+| surface_pressure_min        | Float    | Minimum daily daily pressure at surface | () |
