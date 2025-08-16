@@ -255,7 +255,13 @@ MergeRaw = MergeRaw.drop('Unnamed: 0', axis=1)
 NewFeatureRaw = MergeRaw.copy()
 NewFeatureRaw['tornado_occurred'] = NewFeatureRaw['TOR_F_SCALE'].apply(lambda x: 1 if pd.notna(x) else 0)
 NewFeatureRaw['time_of_year'] = NewFeatureRaw['date'].dt.month
+
+NewFeatureRaw['CZ_NAME_STR'] = NewFeatureRaw['CZ_NAME_STR'].fillna('None')
+NewFeatureRaw['TOR_F_SCALE'] = NewFeatureRaw['TOR_F_SCALE'].fillna('None')
+NewFeatureRaw['TOR_LENGTH'] = NewFeatureRaw['TOR_LENGTH'].fillna(0)
+NewFeatureRaw['TOR_WIDTH'] = NewFeatureRaw['TOR_WIDTH'].fillna(0)
 # NewFeatureRaw.info()
+# NewFeatureRaw.isnull().sum()
 NewFeatureRaw.head()
 NewFeatureRaw.to_csv('data/tornado_days.csv')
 ```
