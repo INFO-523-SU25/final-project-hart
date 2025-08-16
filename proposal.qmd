@@ -262,8 +262,9 @@ NewFeatureRaw['TOR_LENGTH'] = NewFeatureRaw['TOR_LENGTH'].fillna(0)
 NewFeatureRaw['TOR_WIDTH'] = NewFeatureRaw['TOR_WIDTH'].fillna(0)
 # NewFeatureRaw.info()
 # NewFeatureRaw.isnull().sum()
-NewFeatureRaw.head()
+
 NewFeatureRaw.to_csv('data/tornado_days.csv')
+NewFeatureRaw.head()
 ```
 ### Exploratory Data Analysis
 

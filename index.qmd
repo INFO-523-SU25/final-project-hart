@@ -71,6 +71,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from sklearn.model_selection import train_test_split, KFold, cross_val_score, GridSearchCV
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from sklearn.preprocessing import LabelEncoder
@@ -79,6 +80,9 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.decomposition import PCA
 import statsmodels.api as sm
+import tkinter as tk
+from tkinter import ttk
+
 ```
 
 ```{python}
@@ -86,12 +90,25 @@ import statsmodels.api as sm
 #| message: false
 
 AllDaysWithTornados = pd.read_csv('data/tornado_days.csv')
+AllDaysWithTornados = AllDaysWithTornados.drop('Unnamed: 0', axis=1)
+AllDaysWithTornados['CZ_NAME_STR'] = AllDaysWithTornados['CZ_NAME_STR'].fillna('None')
+AllDaysWithTornados['TOR_F_SCALE'] = AllDaysWithTornados['TOR_F_SCALE'].fillna('None')
+
+label_encoder = LabelEncoder()
+AllDaysWithTornados['CZ_NAME_STR'] = label_encoder.fit_transform(AllDaysWithTornados['CZ_NAME_STR'])
+# print("Encoded Labels:", AllDaysWithTornados['CZ_NAME_STR'])
+AllDaysWithTornados['TOR_F_SCALE'] = label_encoder.fit_transform(AllDaysWithTornados['TOR_F_SCALE'])
+# print("Encoded Labels:", AllDaysWithTornados['TOR_F_SCALE'])
+# AllDaysWithTornados['TOR_F_SCALE'].unique()
+# AllDaysWithTornados['CZ_NAME_STR'].unique()
 
 ```
 
 ## Exploratory Data Analysis (EDA)
 
 ```{python}
+#| label: eda
+#| message: false
 def UnivariateAnalysis(df, column = None):
     """
     Perform univariate analysis on the dataset.
@@ -122,11 +139,11 @@ def UnivariateAnalysis(df, column = None):
         plt.show()  # Display the count plot for each categoric column
 
 #Down selected to a few interesting columns
-sns.pairplot(data=AllDaysWithTornados, x_vars=['temperature_2m_mean', 'precipitation_sum', 'dew_point_2m_mean', 'wind_direction_10m_dominant', 'surface_pressure_mean', 'wind_gusts_10m_max', 'wind_speed_10m_max', 'date', 'relative_humidity_2m_mean', 'time_of_year'], y_vars=['tornado_occurred'])
+sns.pairplot(data=AllDaysWithTornados, x_vars=['temperature_2m_mean', 'precipitation_sum', 'dew_point_2m_mean', 'wind_direction_10m_dominant', 'surface_pressure_mean', 'wind_gusts_10m_max', 'wind_speed_10m_max', 'date', 'relative_humidity_2m_mean', 'time_of_year', 'weather_code'], y_vars=['tornado_occurred'])
 plt.show()
-sns.pairplot(data=AllDaysWithTornados, x_vars=['temperature_2m_mean', 'precipitation_sum', 'dew_point_2m_mean', 'wind_direction_10m_dominant', 'surface_pressure_mean', 'wind_gusts_10m_max', 'wind_speed_10m_max', 'relative_humidity_2m_mean', 'tornado_occurred', 'time_of_year'], y_vars=['date'])
+sns.pairplot(data=AllDaysWithTornados, x_vars=['temperature_2m_mean', 'precipitation_sum', 'dew_point_2m_mean', 'wind_direction_10m_dominant', 'surface_pressure_mean', 'wind_gusts_10m_max', 'wind_speed_10m_max', 'relative_humidity_2m_mean', 'tornado_occurred', 'time_of_year', 'weather_code'], y_vars=['date'])
 plt.show()
-sns.pairplot(data=AllDaysWithTornados, x_vars=['temperature_2m_mean', 'precipitation_sum', 'dew_point_2m_mean', 'wind_direction_10m_dominant', 'surface_pressure_mean', 'wind_gusts_10m_max', 'wind_speed_10m_max', 'relative_humidity_2m_mean', 'tornado_occurred', 'date'], y_vars=['time_of_year'])
+sns.pairplot(data=AllDaysWithTornados, x_vars=['temperature_2m_mean', 'precipitation_sum', 'dew_point_2m_mean', 'wind_direction_10m_dominant', 'surface_pressure_mean', 'wind_gusts_10m_max', 'wind_speed_10m_max', 'relative_humidity_2m_mean', 'tornado_occurred', 'date', 'weather_code'], y_vars=['time_of_year'])
 plt.show()
 
 # '''
@@ -145,11 +162,10 @@ The last major thing to think about is how sporadic these events occurr. Roughly
 
 ## Model Creation and Tuning
 
-# Regression Model 1
-* **Model 1**
-  * 
-
+Because of the issue of a small sample side I mentioned previously, I am electing to do a 40/60 test/train split. I am doing this so that the datasets both have ample data and one set does not have only 15-20 points. I am trying to remedy this here and will adjust as needed. I got rid of the date section here as well as the time_of_year column encompasses this variance and is more apt to the seasonal nature of the tornado event. 
 ```{python}
+#| label: pca
+#| message: false
 def DR_PCA(df):
     numerical_cols = df.select_dtypes(include = ['int64', 'float64']).columns
 
@@ -197,6 +213,29 @@ top_feats = get_top_features_for_each_component(pca_data, 0.7)
 print(top_feats)
 pca_data.head()
 ```
+
+```{python}
+#| label: tt-split
+#| message: false
+X = AllDaysWithTornados.drop(['tornado_occurred', 'date'], axis = 1)
+y = AllDaysWithTornados['tornado_occurred']
+
+X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.4, random_state=63)
+X_train_with_const = sm.add_constant(X_train)
+X_test_with_const = sm.add_constant(X_test)
+X_train_with_const = X_train_with_const.astype(int)
+X_test_with_const = X_test_with_const.astype(int)
+```
+
+# Regression Model 1
+* **Model 1**
+  * 
+
+```{python}
+#| label: ols-model
+#| message: false
+
+```
 TODO: Add Model Creation here.
 TODO: Add Model Tuning here.
 
@@ -211,6 +250,66 @@ TODO: Add Analysis here.
 
 ## App/Dashboard
 ```{python}
+#| label: app
+#| message: false
+# Configure and run App
+
+class TornadoPredictorApp(tk.Tk):
+    def __init__(self, model, feature_names):
+        super().__init__()
+        self.title("Tornado Prediction Based of Daily Wather")
+        self.model = model
+        self.feature_names = feature_names
+        self.inputs = {}
+        self.create_widgets()
+        self.plot_prediction()
+
+    def create_widgets(self):
+        input_frame = ttk.Frame(self)
+        input_frame.pack(side=tk.LEFT, fill=tk.Y, padx=10, pady=10)
+
+        for i, name in enumerate(self.feature_names):
+            label = ttk.Label(input_frame, text=name)
+            label.grid(row=i, column=0, sticky=tk.W)
+            slider = ttk.Scale(input_frame, from_=0, to=100, orient=tk.HORIZONTAL, command=self.on_change)
+            slider.set(50)
+            slider.grid(row=i, column=1, padx=5, pady=2)
+            self.inputs[name] = slider
+
+        self.plot_frame = ttk.Frame(self)
+        self.plot_frame.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True)
+
+    def get_input_values(self):
+        return np.array([self.inputs[name].get() for name in self.feature_names]).reshape(1, -1)
+
+    def plot_prediction(self):
+        for widget in self.plot_frame.winfo_children():
+            widget.destroy()
+        values = self.get_input_values()
+        pred = self.model.predict(values)[0]
+
+        fig, ax = plt.subplots(figsize=(4, 3))
+        ax.bar(['Tornado Probability'], [pred], color='red')
+        ax.set_ylim(0, 1)
+        ax.set_ylabel('Predicted Probability')
+        ax.set_title('Tornado Prediction')
+
+        canvas = FigureCanvasTkAgg(fig, master=self.plot_frame)
+        canvas.draw()
+        canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
+
+    def on_change(self, event):
+        self.plot_prediction()
+    
+feature_names = [
+    'temperature_2m_mean', 'precipitation_sum', 'dew_point_2m_mean',
+    'wind_direction_10m_dominant', 'surface_pressure_mean',
+    'wind_gusts_10m_max', 'wind_speed_10m_max', 'relative_humidity_2m_mean'
+]
+
+app = TornadoPredictorApp(model, feature_names)
+app.mainloop()
+
 
 ```
 TODO: Add App/Dashboard here.
