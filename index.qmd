@@ -114,11 +114,11 @@ def UnivariateAnalysis(df, column = None):
         plt.show()  # Display the count plot for each categoric column
 
 #Down selected to a few interesting columns
-sns.pairplot(data=NewFeatureRaw, x_vars=['temperature_2m_mean', 'precipitation_sum', 'dew_point_2m_mean', 'wind_direction_10m_dominant', 'surface_pressure_mean', 'wind_gusts_10m_max', 'wind_speed_10m_max', 'date', 'relative_humidity_2m_mean', 'time_of_year'], y_vars=['tornado_occurred'])
+sns.pairplot(data=AllDaysWithTornados, x_vars=['temperature_2m_mean', 'precipitation_sum', 'dew_point_2m_mean', 'wind_direction_10m_dominant', 'surface_pressure_mean', 'wind_gusts_10m_max', 'wind_speed_10m_max', 'date', 'relative_humidity_2m_mean', 'time_of_year'], y_vars=['tornado_occurred'])
 plt.show()
-sns.pairplot(data=NewFeatureRaw, x_vars=['temperature_2m_mean', 'precipitation_sum', 'dew_point_2m_mean', 'wind_direction_10m_dominant', 'surface_pressure_mean', 'wind_gusts_10m_max', 'wind_speed_10m_max', 'relative_humidity_2m_mean', 'tornado_occurred', 'time_of_year'], y_vars=['date'])
+sns.pairplot(data=AllDaysWithTornados, x_vars=['temperature_2m_mean', 'precipitation_sum', 'dew_point_2m_mean', 'wind_direction_10m_dominant', 'surface_pressure_mean', 'wind_gusts_10m_max', 'wind_speed_10m_max', 'relative_humidity_2m_mean', 'tornado_occurred', 'time_of_year'], y_vars=['date'])
 plt.show()
-sns.pairplot(data=NewFeatureRaw, x_vars=['temperature_2m_mean', 'precipitation_sum', 'dew_point_2m_mean', 'wind_direction_10m_dominant', 'surface_pressure_mean', 'wind_gusts_10m_max', 'wind_speed_10m_max', 'relative_humidity_2m_mean', 'tornado_occurred', 'date'], y_vars=['time_of_year'])
+sns.pairplot(data=AllDaysWithTornados, x_vars=['temperature_2m_mean', 'precipitation_sum', 'dew_point_2m_mean', 'wind_direction_10m_dominant', 'surface_pressure_mean', 'wind_gusts_10m_max', 'wind_speed_10m_max', 'relative_humidity_2m_mean', 'tornado_occurred', 'date'], y_vars=['time_of_year'])
 plt.show()
 
 # '''
@@ -133,12 +133,14 @@ TODO: Add EDA here.
 # Regression Model 1
 * **Model 1**
   * 
-TODO: Add Model Creation here.
-TODO: Add Model Tuning here.
 
 ```{python}
 
 ```
+TODO: Add Model Creation here.
+TODO: Add Model Tuning here.
+
+
 ## Results and Analysis
 ```{python}
 
