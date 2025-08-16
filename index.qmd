@@ -71,6 +71,14 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split, KFold, cross_val_score, GridSearchCV
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
+from sklearn.preprocessing import LabelEncoder
+from sklearn.linear_model import Ridge, RidgeCV, Lasso, LassoCV, LinearRegression
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.decomposition import PCA
+import statsmodels.api as sm
 ```
 
 ```{python}
@@ -126,7 +134,14 @@ plt.show()
 # '''
 # UnivariateAnalysis(InitialDS)
 ```
-TODO: Add EDA here.
+
+The first thing I notice is that there looks like clear conditions for what makes tornados. Mean temperature is roughly 60 to 80 degrees, dew point is 50 to 75, wind direction over 10 minutes is generaly 100 to 200 degrees, surface pressure is generally grouped, wind gust and wind spee maximums are generally 20 to 40 mph and 10 to 20 mph respectively. 
+
+Trends when compared to date look fairly normally distributed from year to year. It looks like a dense cloud for most of the variables which tells me conditions have not changed over time. This gives me hope that the trends are consistent and will continue going forward. I plan on using this information to say trends are consistent and can be extended into the future forecasting.
+
+Since tornados are seasonal in most of the US I wanted to also see if the initial trends I noticed were correlated. On an initial look the conditions do appear to be connected as the middle months (May to August) appear to have conditions that match when the tornados occurr. This is a little concerning and I will need to look at some initial model fits to understand how they interact. 
+
+The last major thing to think about is how sporadic these events occurr. Roughly 380 events in the area of interest after duplicates are removed in a period of 24 * 365 days. I am worried that this may leak into my train test splits and something may need to be done in order to rectify this. 
 
 ## Model Creation and Tuning
 
@@ -135,7 +150,52 @@ TODO: Add EDA here.
   * 
 
 ```{python}
+def DR_PCA(df):
+    numerical_cols = df.select_dtypes(include = ['int64', 'float64']).columns
 
+    scaler = StandardScaler()
+    scaled_data = scaler.fit_transform(df[numerical_cols])
+
+    pca = PCA(n_components = 0.95)
+
+    reduced_data = pca.fit_transform(scaled_data)
+
+    loading_scores = pd.DataFrame(pca.components_, columns = numerical_cols)
+
+    pca_full = PCA()
+    pca_full.fit(scaled_data)
+    cumulative_variance = np.cumsum(pca_full.explained_variance_ratio_)
+
+    plt.figure(figsize = (8, 6))
+    plt.plot(cumulative_variance)
+    plt.xlabel('Number of Components')
+    plt.ylabel('Cumulative Explained Variance')
+    plt.title('Scree Plot')
+    plt.grid(True)
+
+    inflection_point = np.argmax(cumulative_variance >= 0.95) + 1  
+    plt.axvline(x=inflection_point, color='red', linestyle='--')
+    plt.axhline(y=cumulative_variance[inflection_point], color='red', linestyle='--')
+    plt.text(inflection_point+1, 0.5, f'Inflection Point:\n{inflection_point} Components', color = 'red')
+
+    plt.show()
+
+    return loading_scores
+
+def get_top_features_for_each_component(loading_scores, threshold):
+    top_features = {}
+    # print(loading_scores.shape[0])
+    for i in range(loading_scores.shape[0]):
+        component = f"Component {i+1}"
+        scores = loading_scores.iloc[i]
+        top_features_for_component = scores[abs(scores) > threshold].index.tolist()
+        top_features[component] = top_features_for_component
+    return top_features
+
+pca_data = DR_PCA(AllDaysWithTornados)
+top_feats = get_top_features_for_each_component(pca_data, 0.7)
+print(top_feats)
+pca_data.head()
 ```
 TODO: Add Model Creation here.
 TODO: Add Model Tuning here.

@@ -9,6 +9,8 @@ requests_cache
 retry_requests
 
 # Data Processing
+scikit-learn
+statsmodels
 
 
 # Data Visualization
