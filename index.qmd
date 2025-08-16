@@ -411,57 +411,58 @@ TODO: Add Analysis here.
 #| message: false
 # Configure and run App
 
-class TornadoPredictorApp(tk.Tk):
-    def __init__(self, model, feature_names):
-        super().__init__()
-        self.title("Tornado Prediction Based of Daily Wather")
-        self.model = model
-        self.feature_names = feature_names
-        self.inputs = {}
-        self.create_widgets()
-        self.plot_prediction()
+# class TornadoPredictorApp(tk.Tk):
+#     def __init__(self, model, feature_names):
+#         super().__init__()
+#         self.title("Tornado Prediction Based of Daily Wather")
+#         self.model = model
+#         self.feature_names = feature_names
+#         self.inputs = {}
+#         self.create_widgets()
+#         self.plot_prediction()
 
-    def create_widgets(self):
-        input_frame = ttk.Frame(self)
-        input_frame.pack(side=tk.LEFT, fill=tk.Y, padx=10, pady=10)
+#     def create_widgets(self):
+#         input_frame = ttk.Frame(self)
+#         input_frame.pack(side=tk.LEFT, fill=tk.Y, padx=10, pady=10)
 
-        for i, name in enumerate(self.feature_names):
-            label = ttk.Label(input_frame, text=name)
-            label.grid(row=i, column=0, sticky=tk.W)
-            slider = ttk.Scale(input_frame, from_=0, to=100, orient=tk.HORIZONTAL, command=self.on_change)
-            slider.set(50)
-            slider.grid(row=i, column=1, padx=5, pady=2)
-            self.inputs[name] = slider
+#         for i, name in enumerate(self.feature_names):
+#             label = ttk.Label(input_frame, text=name)
+#             label.grid(row=i, column=0, sticky=tk.W)
+#             slider = ttk.Scale(input_frame, from_=0, to=100, orient=tk.HORIZONTAL, command=self.on_change)
+#             slider.set(50)
+#             slider.grid(row=i, column=1, padx=5, pady=2)
+#             self.inputs[name] = slider
 
-        self.plot_frame = ttk.Frame(self)
-        self.plot_frame.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True)
+#         self.plot_frame = ttk.Frame(self)
+#         self.plot_frame.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True)
 
-    def get_input_values(self):
-        return np.array([self.inputs[name].get() for name in self.feature_names]).reshape(1, -1)
+#     def get_input_values(self):
+#         return np.array([self.inputs[name].get() for name in self.feature_names]).reshape(1, -1)
 
-    def plot_prediction(self):
-        for widget in self.plot_frame.winfo_children():
-            widget.destroy()
-        values = self.get_input_values()
-        pred = self.model.predict(values)[0]
+#     def plot_prediction(self):
+#         for widget in self.plot_frame.winfo_children():
+#             widget.destroy()
+#         values = self.get_input_values()
+#         pred = self.model.predict(values)[0]
 
-        fig, ax = plt.subplots(figsize=(4, 3))
-        ax.bar(['Tornado Probability'], [pred], color='red')
-        ax.set_ylim(0, 1)
-        ax.set_ylabel('Predicted Probability')
-        ax.set_title('Tornado Prediction')
+#         fig, ax = plt.subplots(figsize=(4, 3))
+#         ax.bar(['Tornado Probability'], [pred], color='red')
+#         ax.set_ylim(0, 1)
+#         ax.set_ylabel('Predicted Probability')
+#         ax.set_title('Tornado Prediction')
 
-        canvas = FigureCanvasTkAgg(fig, master=self.plot_frame)
-        canvas.draw()
-        canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
+#         canvas = FigureCanvasTkAgg(fig, master=self.plot_frame)
+#         canvas.draw()
+#         canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
 
-    def on_change(self, event):
-        self.plot_prediction()
+#     def on_change(self, event):
+#         self.plot_prediction()
     
     
-app = TornadoPredictorApp(model, feature_names)
-app.mainloop()
+# app = TornadoPredictorApp(model, feature_names)
+# app.mainloop()
 
+print("HI")
 
 ```
 TODO: Add App/Dashboard here.
