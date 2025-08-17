@@ -318,9 +318,9 @@ plt.show()
 
 # Questions
 
-1. Can I classify the weather conditions of different major weather events using daily data (i.e. Can I say this weather is indicitave of a sunny day, or severe thurnderstorm, or drizzling)
+1. Can I develop a model that successfully classifies which days tornado formation will occur using daily weather data for the Twin Cities area? 
 
-2. Can I build a model to predict tornado occurance given a daily weather 
+2. Can I create a GUI/dashboard to quickly allow users to tune/view predictions. 
 
 # Analysis plan
 
@@ -395,27 +395,27 @@ Acceptance Criteria:
 
 Description:
 
-* The goal of this task is to create an OLS model as a baseline based off PCA or other reduction techniques.
+* The goal of this task is to create a simple classification model probably logistic regression or naive bayes.
 
-* From there I want to examine how accurate the model is by examining the R^2 scores and MSE
+* From there I want to examine how accurate the model is by examining the accuracy and percision scores
 
 * I want to look at other scores potentially like the F1 score or ROC-AUC.
 
-* I want to also do some preliminary looks at implementing Ridge Regression and Lasso Regression with cross validation
+* I want to also do some preliminary looks at implementing other classification models for more complex models like Random Forest and Support Vector Machines (SVM)
 
 Acceptance Criteria: 
 
-* OLS Model Created and fit examined and documented for write up. 
+* Simple Model(s) Created and fit examined and documented for write up. 
 
 * Implement scores like F1 and ROC-AUC
 
-* Start Implementation of Ridge and Lasso Regression
+* Start Implementation of Random Forest and SVM
 
 #### Tune and Validate Classification and Regression and Add to Write Up:
 
 Description: 
 
-* The goal of this task is to finish of the Ridge and Lasso from the previous task.
+* The goal of this task is to finish of the Random Forest and SVM from the previous task.
 
 * From there I want to examine measures of fit and see how well it fits using similar scoring to previous tasks
 
@@ -427,7 +427,7 @@ Description:
 
 Acceptance Criteria: 
 
-* Lasso and Ridge regressions finished and examined. 
+* Random Forest and SVM regressions finished and examined. 
 
 * Documentation for all the models is finished for the write up
 

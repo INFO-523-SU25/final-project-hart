@@ -30,7 +30,7 @@ This project is special to me as I have had the unfortunate experience of having
 
 # Questions: 
 
-1. Can I develop a model that successfully predicts which days tornado formation will occur using daily weather data for the Twin Cities area? 
+1. Can I develop a model that successfully classifies which days tornado formation will occur using daily weather data for the Twin Cities area? 
 
 2. Can I create a GUI/dashboard to quickly allow users to tune/view predictions. 
 
