@@ -5,7 +5,7 @@ author: "The Crengineers - Tyler Hart"
 title-slide-attributes:
   data-background-image: images/1024px-Tornado_Alley_Diagram.png
   data-background-size: stretch
-  data-background-opacity: "0.7"
+  data-background-opacity: "0.3"
   data-slide-number: none
 format:
   revealjs:
@@ -46,123 +46,118 @@ plt.rcParams['figure.figsize'] = (6, 6 * 0.618)
 #| label: load-data
 #| include: false
 # Load data in Python
-mtcars = sns.load_dataset('mpg').dropna()  # mtcars dataset is similar to the mpg dataset from seaborn
-mtcars['speed'] = mtcars['horsepower'] / mtcars['weight']
-
-penguins = sns.load_dataset('penguins').dropna()
+AllDaysWithTornados = pd.read_csv('data/tornado_days.csv')
 ```
 
-# Using Quarto for presentations
+# Introduction
 
-## Quarto
+## Why Tornadoes in the Twin Cities
 
--   The presentation is created using the Quarto CLI
+-   Unfortunately I have had friends and family affected by devastationg tornados
 
--   `##` sets the start of a new slide
+-   My family lives in the Twin Cities which while towards the top of tornado alley is still in its "alley" of influence
 
-## Layouts
+- Daily weather is a part of everyones lives. Living in Tucson now, I check it at least 10 times a day in the summer. 
 
-You can use plain text
+## DataSets
+More Detailed dataset information can be found at [Data Dictionary](https://github.com/INFO-523-SU25/final-project-hart/blob/main/data/README.md)
 
-::: columns
-::: {.column width="40%"}
--   or bullet points[^1]
-:::
+::: {.panel-tabset}
 
-::: {.column width="60%"}
-or in two columns
-:::
-:::
+## Area of Interest
 
-[^1]: And add footnotes
-
--   like
-
--   this
-
-## Code
-
-```{python}
-from sklearn.linear_model import LinearRegression
-import statsmodels.api as sm
-import pandas as pd
-
-# Fit a linear regression model
-X = mtcars[['speed']]
-y = mtcars['mpg']
-model = LinearRegression().fit(X, y)
-
-# Summary of the model
-X2 = sm.add_constant(X)
-est = sm.OLS(y, X2)
-est2 = est.fit()
-print(est2.summary())
-```
-
-## Plots
-
-```{python}
-penguins['species'] = penguins['species'].apply(lambda x: "Adelie" if x == "Adelie" else "Other")
-sns.scatterplot(data=penguins, x='flipper_length_mm', y='body_mass_g', hue='species')
-plt.show()
-```
-
-## Plot and text
-
-::: columns
-::: {.column width="50%"}
--   Some text
-
--   goes here
-:::
-
-::: {.column width="50%"}
-```{python}
-#| warning: false
-#| fig.width: 5.5
-fig, ax = plt.subplots(figsize=(5.5, 5.5 * 0.618))
-sns.boxplot(data=penguins, x='bill_length_mm', y='species', hue='species', ax=ax)
-plt.show()
-```
-:::
-:::
-
-# A new section...
-
-## Tables
-
-If you want to generate a table, make sure it is in the HTML format (instead of Markdown or other formats), e.g.,
-
-```{python}
-penguins.head().to_html()
-```
-
-## Images
+TODO: PHOTO AND RATIONALE HERE
 
 ![Image credit: Danielle Navarro, Percolate.](images/watercolour_sys02_img34_teacup-ocean.png){fig-align="center" width="500"}
 
-## Math Expressions {.smaller}
+## Data Description
 
-You can write LaTeX math expressions inside a pair of dollar signs, e.g. \$\\alpha+\\beta\$ renders $\alpha + \beta$. You can use the display style with double dollar signs:
+- Two Datasets:
 
-```         
-$$\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i$$
+  - Minnesota NOAA Tornado Archive:
+
+    - Contains data on every reported tornado event as far back as 1952.
+
+    - Includes tornado statistics such as location, size, damage
+
+  - Minneapolis Saint-Paul (MSP/Twin Cities) daily weather data:
+
+    - Gathered daily weather data from MSP International Airport.
+
+    - Includes all daily data as far back as 2000 including wind direction, temperature, surface pressure, etc.
+
+    - Gathered from open meteo API. Saved in repo for convience. 
+
+## Data Head
+
+Merged Variables I care about with Feature Engineering Features
+
+```{python}
+#| label: data-head
+#| include: false
+# Show Head in Python
+
+AllDaysWithTornados = AllDaysWithTornados.drop('Unnamed: 0', axis=1)
+AllDaysWithTornados['CZ_NAME_STR'] = AllDaysWithTornados['CZ_NAME_STR'].fillna('None')
+AllDaysWithTornados['TOR_F_SCALE'] = AllDaysWithTornados['TOR_F_SCALE'].fillna('None')
+AllDaysWithTornados.head().to_html()
+
+```
+:::
+
+
+## Exploratory Data Analysis
+
+::: {.panel-tabset}
+
+## Tornado Occurred Relations
+```{python}
+
+sns.pairplot(data=AllDaysWithTornados, x_vars=['temperature_2m_mean', 'precipitation_sum', 'dew_point_2m_mean', 'wind_direction_10m_dominant', 'surface_pressure_mean', 'wind_gusts_10m_max', 'wind_speed_10m_max', 'date', 'relative_humidity_2m_mean', 'time_of_year', 'weather_code'], y_vars=['tornado_occurred'])
+plt.show()
 ```
 
-$$
-\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i
-$$
+- 
 
-Limitations:
+## Date Relations
 
-1.  The source code of a LaTeX math expression must be in one line, unless it is inside a pair of double dollar signs, in which case the starting `$$` must appear in the very beginning of a line, followed immediately by a non-space character, and the ending `$$` must be at the end of a line, led by a non-space character;
+```{python}
+sns.pairplot(data=AllDaysWithTornados, x_vars=['temperature_2m_mean', 'precipitation_sum', 'dew_point_2m_mean', 'wind_direction_10m_dominant', 'surface_pressure_mean', 'wind_gusts_10m_max', 'wind_speed_10m_max', 'relative_humidity_2m_mean', 'tornado_occurred', 'time_of_year', 'weather_code'], y_vars=['date'])
+plt.show()
+```
 
-2.  There should not be spaces after the opening `$` or before the closing `$`.
+- 
 
-# Wrap up
+## Time of Year Relations
 
-## Feeling adventurous?
+```{python}
+sns.pairplot(data=AllDaysWithTornados, x_vars=['temperature_2m_mean', 'precipitation_sum', 'dew_point_2m_mean', 'wind_direction_10m_dominant', 'surface_pressure_mean', 'wind_gusts_10m_max', 'wind_speed_10m_max', 'relative_humidity_2m_mean', 'tornado_occurred', 'date', 'weather_code'], y_vars=['time_of_year'])
+plt.show()
 
--   You are welcomed to use the default styling of the slides. In fact, that's what I expect majority of you will do. You will differentiate yourself with the content of your presentation.
+```
 
--   But some of you might want to play around with slide styling. Some solutions for this can be found at https://quarto.org/docs/presentations/revealjs.https://quarto.org/docs/presentations/revealjs.
+- 
+
+:::
+
+## Model Creation and Results:
+
+::: {.panel-tabset}
+
+## Logistic Regression
+
+## Naive Bayes
+
+## Support Vector Machines
+
+## Random Forest
+
+:::
+
+## App Display:
+
+
+
+
+## Questions:
+
