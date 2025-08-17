@@ -8,8 +8,8 @@ website:
       - icon: github
         href: https://github.com/INFO-523-SU25/final-project-hart # Need to change to your project repo
     left:
-      - text: Project
-        href: index.qmd
+      # - text: Project
+      #   href: index.qmd
       - text: Proposal
         href: proposal.qmd
       - text: Presentation
