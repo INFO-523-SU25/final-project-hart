@@ -15,7 +15,6 @@ editor: visual
 jupyter: python3
 execute:
   echo: false
-  echo: false
   freeze: auto  # re-render only when source changes
 ---
 
