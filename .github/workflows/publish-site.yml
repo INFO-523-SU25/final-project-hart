@@ -41,7 +41,7 @@ jobs:
 
       - name: Build site 🔧
         run: |
-          quarto render
+          quarto render presentation.qmd
       
       - name: Setup Pages
         uses: actions/configure-pages@v3
