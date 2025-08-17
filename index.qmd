@@ -5,7 +5,7 @@ author:
   - name: "The Crengineers - Tyler Hart"
     affiliations:
       - name: "College of Information Science, College of Systems and Industrial Engineering, University of Arizona"
-description: "TODO: An analysis of historical tornado patterns in the area of Twin Ciries from 2020-Current(2025) to predict Tornado Occurence"
+description: "An analysis of historical tornado patterns in the area of Twin Ciries from 2000-Current(2025) to predict Tornado Occurence"
 format:
    html:
     code-tools: true
@@ -15,6 +15,7 @@ editor: visual
 execute:
   warning: false
   echo: false
+  freeze: auto  # re-render only when source changes
 jupyter: python3
 ---
 
@@ -72,7 +73,7 @@ import statsmodels.api as sm
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-# from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+import PySimpleGUI as sg
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import LabelEncoder
@@ -84,8 +85,6 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.model_selection import GridSearchCV, RandomizedSearchCV,cross_val_score
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, classification_report,roc_curve, roc_auc_score, accuracy_score
 from sklearn.decomposition import PCA
-# import tkinter as tk
-# from tkinter import ttk
 
 ```
 
@@ -408,64 +407,75 @@ print(classification_report(y_test, y_pred))
 ```
 
 ## App/Dashboard
+
+Below is a simple application/GUI meant to take the best model and predict 
 ```{python}
 #| label: app
 #| message: false
 # Configure and run App
 
-# class TornadoPredictorApp(tk.Tk):
-#     def __init__(self, model, feature_names):
-#         super().__init__()
-#         self.title("Tornado Prediction Based of Daily Wather")
-#         self.model = model
-#         self.feature_names = feature_names
-#         self.inputs = {}
-#         self.create_widgets()
-#         self.plot_prediction()
+# Get min/max for each feature for slider ranges
+feature_ranges = {feat: ((ScaledTornados[feat].min()), (ScaledTornados[feat].max())) for feat in feature_names}
 
-#     def create_widgets(self):
-#         input_frame = ttk.Frame(self)
-#         input_frame.pack(side=tk.LEFT, fill=tk.Y, padx=10, pady=10)
+def plot_probability(prob):
+    plt.figure(figsize=(4, 3))
+    plt.bar(['Tornado'], [prob], color='red')
+    plt.ylim(0, 1)
+    plt.ylabel('Predicted Probability')
+    plt.title('Tornado Prediction')
+    plt.tight_layout()
+    fig = plt.gcf()
+    return fig
 
-#         for i, name in enumerate(self.feature_names):
-#             label = ttk.Label(input_frame, text=name)
-#             label.grid(row=i, column=0, sticky=tk.W)
-#             slider = ttk.Scale(input_frame, from_=0, to=100, orient=tk.HORIZONTAL, command=self.on_change)
-#             slider.set(50)
-#             slider.grid(row=i, column=1, padx=5, pady=2)
-#             self.inputs[name] = slider
+# Layout for sliders
 
-#         self.plot_frame = ttk.Frame(self)
-#         self.plot_frame.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True)
+layout = [
+    [sg.Text('Adjust Weather Conditions:')],
+]
 
-#     def get_input_values(self):
-#         return np.array([self.inputs[name].get() for name in self.feature_names]).reshape(1, -1)
+for feat in feature_names:
+    min_val, max_val = feature_ranges[feat]
+    layout.append([
+        sg.Text(feat, size=(25, 1)),
+        sg.Slider(range=(min_val, max_val), orientation='h', size=(40, 15), key=feat, resolution=0.01, default_value=(min_val + max_val) / 2)
+    ])
+layout += [
+    [sg.Button('Predict'), sg.Button('Exit')],
+    [sg.Text('', size=(40, 2), key='-RESULT-')],
+    [sg.Canvas(key='-CANVAS-')]
+]
 
-#     def plot_prediction(self):
-#         for widget in self.plot_frame.winfo_children():
-#             widget.destroy()
-#         values = self.get_input_values()
-#         pred = self.model.predict(values)[0]
+window = sg.Window('Tornado Predictor', layout, finalize=True)
 
-#         fig, ax = plt.subplots(figsize=(4, 3))
-#         ax.bar(['Tornado Probability'], [pred], color='red')
-#         ax.set_ylim(0, 1)
-#         ax.set_ylabel('Predicted Probability')
-#         ax.set_title('Tornado Prediction')
+while True:
+    event, values = window.read()
+    if event in (sg.WIN_CLOSED, 'Exit'):
+        break
+    if event == 'Predict':
+        input_vals = np.array([values[feat] for feat in feature_names]).reshape(1, -1)
+        pred = model.predict(input_vals)[0]
+        prob = model.predict_proba(input_vals)[0][1] if hasattr(model, "predict_proba") else None
+        if pred == 1:
+            if prob is not None:
+                result_text = f"Warning: Conditions are pertinent for a tornado!\nProbability: {prob:.2f}" 
+            else:
+                result_text = "Warning: Conditions are pertinent for a tornado!"
+        else:
+            if prob is not None:
+                result_text = f"No tornado predicted.\nProbability: {prob:.2f}"  
+            else:
+                result_text = "No tornado predicted."
+        window['-RESULT-'].update(result_text)
+        # Plot probability
+        if prob is not None:
+            fig = plot_probability(prob)
+            # Draw with PySimpleGUI
+            fig_canvas_agg = sg.pyplot.FigureCanvasTkAgg(fig, window['-CANVAS-'].TKCanvas)
+            fig_canvas_agg.draw()
+            plt.close(fig)
 
-#         canvas = FigureCanvasTkAgg(fig, master=self.plot_frame)
-#         canvas.draw()
-#         canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
-
-#     def on_change(self, event):
-#         self.plot_prediction()
-    
-    
-# app = TornadoPredictorApp(model, feature_names)
-# app.mainloop()
-
-print("HI")
+window.close()
 
 ```
-TODO: Add App/Dashboard here.
+
 

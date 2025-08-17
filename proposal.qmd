@@ -17,6 +17,7 @@ code-annotations: hover
 execute:
   warning: false
   echo: false
+  freeze: auto  # re-render only when source changes
 jupyter: python3
 ---
 
