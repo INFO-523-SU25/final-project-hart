@@ -251,7 +251,7 @@ for val, count in zip(unique, counts):
 
 # Regression Models
 
-For this analysis I chose to create and tune 4 different classification models. All undergoing random search cross validation over a generated parameter sweep. For  each model I deemed f1 score to be the best measure of fit because it balances percision and recall. This allows some models to fully predict 
+For this analysis I chose to create and tune 4 different classification models. All undergoing random search cross validation over a generated parameter sweep. For  each model I deemed f1 score to be the best measure of fit because it balances percision and recall. This allows some models to fully predict the tornado cases at the expense of some false tornado alarms. I believe this is the right approach because the cost of missing an early warning alarm is much greater than giving an early warning when it is not needed. 
 
 ```{python}
 #| label: logreg-model
@@ -364,7 +364,6 @@ rf_grid.fit(X_train, y_train)
    print("Best RF score:", rf_grid.best_score_)
    ```
 
-
 ```{python}
 #| label: assign-best
 #| message: false
@@ -379,36 +378,34 @@ best_rf_model = rf_grid.best_estimator_
 ```
 
 ## Results and Analysis
+
 ```{python}
 def show_metrics(model, X_test, y_test):
 
     y_pred = model.predict(X_test)
-    print("Accuracy:", accuracy_score(y_test, y_pred))
-    print(classification_report(y_test, y_pred))
+    # print("Accuracy:", accuracy_score(y_test, y_pred))
+    # print(classification_report(y_test, y_pred))
     cm = confusion_matrix(y_test, y_pred)
     ConfusionMatrixDisplay(cm).plot()
-
-    # y_prob = model.predict_proba(X_test)[:, 1]
-    # fpr, tpr, _ = roc_curve(y_test, y_prob)
-    # plt.plot(fpr, tpr)
-    # plt.xlabel("False Positive Rate")
-    # plt.ylabel("True Positive Rate")
-    # plt.title("ROC Curve")
-    # plt.show()
-    # print("AUC:", roc_auc_score(y_test, y_prob))
     
 show_metrics(best_logreg_model, X_test, y_test)
 show_metrics(best_bayes_model, X_test, y_test)
 show_metrics(best_svc_model, X_test, y_test)
 show_metrics(best_rf_model, X_test, y_test)
 
+```
+
+As can be seen in the confusion matrices, the logistic regression model performs the best when trained. It correctly perdicts all of the tornado events at the cost of 128 false tornado predictions over a 25 year time span. Similarly, the Naive Bayes predictor also correctly classified the tornado conditions at the expense of 202 false positives. I believe this is an artifact of the model complexity being high for this model. The last two models, the Random Forest Classifier and the Support Vector Machines, performed exactly the same. Both of these models correctly classified all of the non-tonado days, but failed to classify all but 2 of the tornado days. 
+
+Overall in terms of accuracy, the Support Vector Machines and Random Forest models had the highest accuracy score only incorrectly classifiying 7 events each. This does not mean they were in fact the best. Both of these models as the 7 events they misclassified are costly. i.e. lost of life, belongings, and loved ones. For this reason I have elected to select the Logistic Regression as the best model. It both correctly classified the tornadoes and minimized the number of false tornado predictions when compared to the Naive Bayes model. The classification report for the Logistic Regression model can be seen below: 
+
+```{python}
 #Determine which model is best 
 best_model = best_logreg_model
-    
-```
-TODO: Add Results here.
 
-TODO: Add Analysis here.
+y_pred = best_model.predict(X_test)
+print(classification_report(y_test, y_pred))
+```
 
 ## App/Dashboard
 ```{python}
