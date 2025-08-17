@@ -251,7 +251,7 @@ for val, count in zip(unique, counts):
 
 # Regression Models
 
-For this analysis I chose to create and tune 4 different classification models. 
+For this analysis I chose to create and tune 4 different classification models. All undergoing random search cross validation over a generated parameter sweep. For  each model I deemed f1 score to be the best measure of fit because it balances percision and recall. This allows some models to fully predict 
 
 ```{python}
 #| label: logreg-model
@@ -403,7 +403,7 @@ show_metrics(best_svc_model, X_test, y_test)
 show_metrics(best_rf_model, X_test, y_test)
 
 #Determine which model is best 
-models = [best_logreg_model, best_bayes_model, best_svc_model, best_rf_model]
+best_model = best_logreg_model
     
 ```
 TODO: Add Results here.
