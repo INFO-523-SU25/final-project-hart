@@ -415,66 +415,66 @@ Below is a simple application/GUI meant to take the best model and predict
 # Configure and run App
 
 # Get min/max for each feature for slider ranges
-feature_ranges = {feat: ((ScaledTornados[feat].min()), (ScaledTornados[feat].max())) for feat in feature_names}
+# feature_ranges = {feat: ((ScaledTornados[feat].min()), (ScaledTornados[feat].max())) for feat in feature_names}
 
-def plot_probability(prob):
-    plt.figure(figsize=(4, 3))
-    plt.bar(['Tornado'], [prob], color='red')
-    plt.ylim(0, 1)
-    plt.ylabel('Predicted Probability')
-    plt.title('Tornado Prediction')
-    plt.tight_layout()
-    fig = plt.gcf()
-    return fig
+# def plot_probability(prob):
+#     plt.figure(figsize=(4, 3))
+#     plt.bar(['Tornado'], [prob], color='red')
+#     plt.ylim(0, 1)
+#     plt.ylabel('Predicted Probability')
+#     plt.title('Tornado Prediction')
+#     plt.tight_layout()
+#     fig = plt.gcf()
+#     return fig
 
-# Layout for sliders
+# # Layout for sliders
 
-layout = [
-    [sg.Text('Adjust Weather Conditions:')],
-]
+# layout = [
+#     [sg.Text('Adjust Weather Conditions:')],
+# ]
 
-for feat in feature_names:
-    min_val, max_val = feature_ranges[feat]
-    layout.append([
-        sg.Text(feat, size=(25, 1)),
-        sg.Slider(range=(min_val, max_val), orientation='h', size=(40, 15), key=feat, resolution=0.01, default_value=(min_val + max_val) / 2)
-    ])
-layout += [
-    [sg.Button('Predict'), sg.Button('Exit')],
-    [sg.Text('', size=(40, 2), key='-RESULT-')],
-    [sg.Canvas(key='-CANVAS-')]
-]
+# for feat in feature_names:
+#     min_val, max_val = feature_ranges[feat]
+#     layout.append([
+#         sg.Text(feat, size=(25, 1)),
+#         sg.Slider(range=(min_val, max_val), orientation='h', size=(40, 15), key=feat, resolution=0.01, default_value=(min_val + max_val) / 2)
+#     ])
+# layout += [
+#     [sg.Button('Predict'), sg.Button('Exit')],
+#     [sg.Text('', size=(40, 2), key='-RESULT-')],
+#     [sg.Canvas(key='-CANVAS-')]
+# ]
 
-window = sg.Window('Tornado Predictor', layout, finalize=True)
+# window = sg.Window('Tornado Predictor', layout, finalize=True)
 
-while True:
-    event, values = window.read()
-    if event in (sg.WIN_CLOSED, 'Exit'):
-        break
-    if event == 'Predict':
-        input_vals = np.array([values[feat] for feat in feature_names]).reshape(1, -1)
-        pred = model.predict(input_vals)[0]
-        prob = model.predict_proba(input_vals)[0][1] if hasattr(model, "predict_proba") else None
-        if pred == 1:
-            if prob is not None:
-                result_text = f"Warning: Conditions are pertinent for a tornado!\nProbability: {prob:.2f}" 
-            else:
-                result_text = "Warning: Conditions are pertinent for a tornado!"
-        else:
-            if prob is not None:
-                result_text = f"No tornado predicted.\nProbability: {prob:.2f}"  
-            else:
-                result_text = "No tornado predicted."
-        window['-RESULT-'].update(result_text)
-        # Plot probability
-        if prob is not None:
-            fig = plot_probability(prob)
-            # Draw with PySimpleGUI
-            fig_canvas_agg = sg.pyplot.FigureCanvasTkAgg(fig, window['-CANVAS-'].TKCanvas)
-            fig_canvas_agg.draw()
-            plt.close(fig)
+# while True:
+#     event, values = window.read()
+#     if event in (sg.WIN_CLOSED, 'Exit'):
+#         break
+#     if event == 'Predict':
+#         input_vals = np.array([values[feat] for feat in feature_names]).reshape(1, -1)
+#         pred = model.predict(input_vals)[0]
+#         prob = model.predict_proba(input_vals)[0][1] if hasattr(model, "predict_proba") else None
+#         if pred == 1:
+#             if prob is not None:
+#                 result_text = f"Warning: Conditions are pertinent for a tornado!\nProbability: {prob:.2f}" 
+#             else:
+#                 result_text = "Warning: Conditions are pertinent for a tornado!"
+#         else:
+#             if prob is not None:
+#                 result_text = f"No tornado predicted.\nProbability: {prob:.2f}"  
+#             else:
+#                 result_text = "No tornado predicted."
+#         window['-RESULT-'].update(result_text)
+#         # Plot probability
+#         if prob is not None:
+#             fig = plot_probability(prob)
+#             # Draw with PySimpleGUI
+#             fig_canvas_agg = sg.pyplot.FigureCanvasTkAgg(fig, window['-CANVAS-'].TKCanvas)
+#             fig_canvas_agg.draw()
+#             plt.close(fig)
 
-window.close()
+# window.close()
 
 ```
 
