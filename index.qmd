@@ -425,7 +425,7 @@ print(classification_report(y_test, y_pred))
 
 ## App/Dashboard
 
-Below is a simple application/GUI meant to take the best model and predict if a tornado has a high chance to spawn. Using this app one could hopefully TODO 
+Below is a simple application/GUI meant to take the best model and predict if a tornado has a high chance to spawn. Using this app one could hopefully plug in forecasted data and attempt to understand if it is likely a tornado will occurr in their area. DUE TO TIME CONSTRAINTS I WAS UNABLE TO UN NORMALIZE THE PARAMETERS FOR MAX AND MIN RANGE THIS IS A SHORTCOMING BUT I DID NOT WANT IT TO LIMIT FROM THE WORK I DID DO. 
 ```{python}
 #| label: app
 #| message: false
