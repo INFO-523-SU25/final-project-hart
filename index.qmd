@@ -434,68 +434,68 @@ Below is a simple application/GUI meant to take the best model and predict if a 
 feature_ranges = {feat: ((ScaledTornados[feat].min()), (ScaledTornados[feat].max())) for feat in feature_names}
 ScaledTornados.head()
 
-# def create_model_tab(model, feature_names, feature_ranges, model_name):
-#     sliders = {}
+def create_model_tab(model, feature_names, feature_ranges, model_name):
+    sliders = {}
 
-#     for feat in feature_names:
-        # min_val, max_val = feature_ranges[feat]
-        # sliders[feat] = widgets.FloatSlider(
-        #     value=(min_val + max_val) / 2,
-        #     min=min_val,
-        #     max=max_val,
-        #     step=0.01,
-        #     description=feat,
-        #     continuous_update=False,
-        #     layout=widgets.Layout(width='90%')
-        # )
+    for feat in feature_names:
+        min_val, max_val = feature_ranges[feat]
+        sliders[feat] = widgets.FloatSlider(
+            value=(min_val + max_val) / 2,
+            min=min_val,
+            max=max_val,
+            step=0.01,
+            description=feat,
+            continuous_update=False,
+            layout=widgets.Layout(width='90%')
+        )
 
-#     predict_button = widgets.Button(description="Predict", button_style='primary')
-#     result_label = widgets.HTML(value="")
+    predict_button = widgets.Button(description="Predict", button_style='primary')
+    result_label = widgets.HTML(value="")
 
-#     def on_predict_clicked(b):
-#         input_vals = np.array([sliders[feat].value for feat in feature_names]).reshape(1, -1)
-#         pred = model.predict(input_vals)[0]
-#         if hasattr(model, "predict_proba"):
-#             prob = model.predict_proba(input_vals)[0][1]
-#         else:
-#             prob = None
-#         if pred == 1:
-#             if prob is None:
-#                 result_label.value = "<b style='color:red'>Warning: Conditions are pertinent for a tornado!</b>"
-#             else:
-#                 result_label.value = f"<b style='color:red'>Warning: Conditions are pertinent for a tornado!<br>Probability: {prob:.2f}</b>"
-#         else:
-#             if prob is None:
-#                 result_label.value = "<b>No tornado predicted.</b>"
-#             else:
-#                 result_label.value = f"<b>No tornado predicted.<br>Probability: {prob:.2f}</b>"
+    def on_predict_clicked(b):
+        input_vals = np.array([sliders[feat].value for feat in feature_names]).reshape(1, -1)
+        pred = model.predict(input_vals)[0]
+        if hasattr(model, "predict_proba"):
+            prob = model.predict_proba(input_vals)[0][1]
+        else:
+            prob = None
+        if pred == 1:
+            if prob is None:
+                result_label.value = "<b style='color:red'>Warning: Conditions are pertinent for a tornado!</b>"
+            else:
+                result_label.value = f"<b style='color:red'>Warning: Conditions are pertinent for a tornado!<br>Probability: {prob:.2f}</b>"
+        else:
+            if prob is None:
+                result_label.value = "<b>No tornado predicted.</b>"
+            else:
+                result_label.value = f"<b>No tornado predicted.<br>Probability: {prob:.2f}</b>"
                 
-#     predict_button.on_click(on_predict_clicked)
+    predict_button.on_click(on_predict_clicked)
 
-#     slider_box = widgets.VBox([sliders[feat] for feat in feature_names])
-#     tab_layout = widgets.VBox([
-#         widgets.HTML(f"<h3>{model_name}: Adjust Weather Conditions</h3>"),
-#         slider_box,
-#         predict_button,
-#         result_label,
-#     ])
-#     return tab_layout
+    slider_box = widgets.VBox([sliders[feat] for feat in feature_names])
+    tab_layout = widgets.VBox([
+        widgets.HTML(f"<h3>{model_name}: Adjust Weather Conditions</h3>"),
+        slider_box,
+        predict_button,
+        result_label,
+    ])
+    return tab_layout
 
-# # Create tabs for each model
-# tabs = [
-#     ("Logistic Regression", best_logreg_model),
-#     ("Naive Bayes", best_bayes_model),
-#     ("Support Vector Machine", best_svc_model),
-#     ("Random Forest", best_rf_model)
-# ]
-# children = []
-# for name, model in tabs:
-#     children.append(create_model_tab(model, feature_names, feature_ranges, name))
-# tab = widgets.Tab()
-# tab.children = children
-# tab.titles = [tabs[i][0] for i in range(len(tabs))]
+# Create tabs for each model
+tabs = [
+    ("Logistic Regression", best_logreg_model),
+    ("Naive Bayes", best_bayes_model),
+    ("Support Vector Machine", best_svc_model),
+    ("Random Forest", best_rf_model)
+]
+children = []
+for name, model in tabs:
+    children.append(create_model_tab(model, feature_names, feature_ranges, name))
+tab = widgets.Tab()
+tab.children = children
+tab.titles = [tabs[i][0] for i in range(len(tabs))]
 
-# display(tab)
+display(tab)
 
 ```
 
