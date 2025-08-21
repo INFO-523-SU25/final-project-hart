@@ -5,7 +5,7 @@ author:
   - name: "The Crengineers - Tyler Hart"
     affiliations:
       - name: "College of Information Science, College of Systems and Industrial Engineering, University of Arizona"
-description: "An analysis of historical weather/tornado patterns in the area of Twin Cities Minnesota (MN) from 2020-Current(2025) to predict Tornado Occurance"
+description: "An analysis of historical weather/tornado patterns in the area of Twin Cities Minnesota (MN) from 2000-Current(2025) to predict Tornado Occurance"
 format:
   html:
     code-tools: true
@@ -149,7 +149,7 @@ An image of the counties I am going to pick can be seen below:
 
 A full data dictionary can be seen in the csv for the storm data export located at data_dictionaries/Storm-Data-Export.pdf. These will eventualy be transcribed to the README.md files for each of the datasets
 
-The other data I will be using is data queried from a weather API. the code used to do this can be seen in the main python sections of the proposal. This set contains all of the last 5 years 2020 - current daily weather data. The first couple rows can be seen below: 
+The other data I will be using is data queried from a weather API. the code used to do this can be seen in the main python sections of the proposal. This set contains all of the last 5 years 2000 - current daily weather data. The first couple rows can be seen below: 
 'HistoricRaw.head()
 It is 20 * 1827 different daily weather data coming out of MSP international airport. This is the major weather hub for the twin cities. Using this data it all seems to be pretty numerical and filled in pretty accurately. I do see some areas with 0 values that may need to be addressed later. 
 'HistoricRaw.info()
@@ -362,7 +362,7 @@ Description:
 
 * I want to load in and clean the data to only the relevant parameters that I need.
 	
-	*  The columns I want specifically are all the daily weather data and the tornadoes from 2020-2025 in the surrounding counties to the twin cities.
+	*  The columns I want specifically are all the daily weather data and the tornadoes from 2000-2025 in the surrounding counties to the twin cities.
 
 * Define New Features (I want a feature for did tornado occur, I want a feature for major storms as well) 
 

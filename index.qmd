@@ -21,11 +21,17 @@ jupyter: python3
 
 ## Abstract
 
-TODO: Add project abstract here.
+The goal of this project is to use publically available daily weather data to predict tornado formation in the Twin Cities area. Using 2 datasets, the NOAA historical Tornado Database for Minnesota and historical Weather data out of MSP International Airport from 2000 - 2025 the aim is to train and test models that can classify tornado occurance based off of daily weather data. This led me to ask two questions seen below: 
+
+1. Can I develop a model that successfully classifies which days tornado formation will occur using daily weather data for the Twin Cities area? 
+
+2. Can I create a GUI/dashboard to quickly allow users to tune/view predictions. 
+
+To see if this is possible four models are going to be trained; Logistic Regression, for its basic approach and easy interpretabilty; Naive Bayes, for its small hyperparameter space; Random Forest, for its more complex analysis; and lastly Vector Machines, for its high dimensional efectiveness. Once the models are trained a best model will be selected based off a trade off between correctly classifying most to all of the tornados and false tornado alarms. Once the best model is picked a simple GUI with sliders will allow users to try their hand at differentiating parameters. 
 
 ## Intro
 
-The primary goal of this project is to use publically available daily weather data to form relationships with NOAA records of tornado formation. This is crucial because unlike hurricanes which have a longer warning timeline, tornadoes are often learned about shortly before they occur. This can cause more extreme damage as people do not have time to secure crucial belongins or themselves in a non-affected area. Daily weather forecast are available and usually a part of every person's daily life. Whether that be through a weather app or the news this publically available data could be potentially utilized to help warn/inform people of the chance of tornado occurring in their areas. One approach to this problem is to create classification models such as Logistic Regression, Random Forest, Naive Bayes, etc that can classify tornado conditions based off historical daily weather data. Once the models 
+The primary goal of this project is to use publically available daily weather data to form relationships with NOAA records of tornado formation. This is crucial because unlike hurricanes which have a longer warning timeline, tornadoes are often learned about shortly before they occur. This can cause more extreme damage as people do not have time to secure crucial belongins or themselves in a non-affected area. Daily weather forecast are available and usually a part of every person's daily life. Whether that be through a weather app or the news this publically available data could be potentially utilized to help warn/inform people of the chance of tornado occurring in their areas. One approach to this problem is to create classification models such as Logistic Regression, Random Forest, Naive Bayes, etc that can classify tornado conditions based off historical daily weather data. Once models exists the hope would be to be able to forecast dangerous tornado data based of the daily weather forecast on say a weather app. 
 
 This project is special to me as I have had the unfortunate experience of having friends and families lives be altered by unexpected tornados. Because of this I am going to focus my analysis to the Twin Cities area, pictured in the Map of Analysis Area Section. This means I will focus my analysis to the surrounding counties and weather data from the Mineapolis-Saint Paul, MSP, airport.  This has lead me to two try and answer the two questions seen below in the Questions section. 
 
@@ -279,6 +285,7 @@ logreg_grid.fit(X_train, y_train)
   ```{python}
   print("Best LR parameters:", logreg_grid.best_params_)
   ```
+
   * Results: 
   ```{python}
   print("Best LR score:", logreg_grid.best_score_)
@@ -306,6 +313,7 @@ bayes_grid.fit(X_train, y_train)
     ```{python}
     print("Best Bayes parameters:", bayes_grid.best_params_)
     ```
+
   * Results: 
    ```{python}
    print("Best Bayes score:", bayes_grid.best_score_)
@@ -332,6 +340,7 @@ svc_grid.fit(X_train, y_train)
     ```{python}
     print("Best SVC parameters:", svc_grid.best_params_)
     ```
+
   * Results: 
    ```{python}
    print("Best SVC score:", svc_grid.best_score_)
@@ -360,6 +369,7 @@ rf_grid.fit(X_train, y_train)
     ```{python}
     print("Best RF parameters:", rf_grid.best_params_)
     ```
+
   * Results: 
    ```{python}
    print("Best RF score:", rf_grid.best_score_)
