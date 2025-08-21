@@ -23,10 +23,25 @@ execute:
 #| echo: false
 
 # Load packages here
-import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
+import statsmodels.api as sm
+import pandas as pd
 import seaborn as sns
+import matplotlib.pyplot as plt
+import PySimpleGUI as sg
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import LabelEncoder
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.neighbors import NearestNeighbors
+from sklearn import svm
+from sklearn.linear_model import LogisticRegression
+from sklearn.naive_bayes import GaussianNB
+from sklearn.model_selection import GridSearchCV, RandomizedSearchCV,cross_val_score
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, classification_report,roc_curve, roc_auc_score, accuracy_score
+from sklearn.decomposition import PCA
+import ipywidgets as widgets
+from IPython.display import display, clear_output
 
 ```
 
@@ -160,6 +175,26 @@ plt.show()
 
 ## Model Creation and Results:
 
+4 Models were created to see which one was best. 
+```{python}
+ScaledTornados = AllDaysWithTornados.copy()
+ScaledTornados.head()
+dropped = ScaledTornados.drop('tornado_occurred', axis = 1)
+numerical_cols = dropped.select_dtypes(include = ['int64', 'float64']).columns
+scaler = StandardScaler()
+ScaledTornados[numerical_cols] = scaler.fit_transform(ScaledTornados[numerical_cols])
+
+feature_names = ScaledTornados.drop(['tornado_occurred', 'CZ_NAME_STR', 'TOR_F_SCALE', 'TOR_LENGTH', 'TOR_WIDTH', 'date'], axis = 1).columns.to_list()
+X = ScaledTornados[feature_names]
+y = ScaledTornados['tornado_occurred']
+
+X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.2, random_state=63)
+
+X_train_with_const = sm.add_constant(X_train)
+X_test_with_const = sm.add_constant(X_test)
+X_train_with_const = X_train_with_const.astype(int)
+X_test_with_const = X_test_with_const.astype(int)
+```
 ::: {.panel-tabset}
 
 ## Logistic Regression
