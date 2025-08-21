@@ -306,7 +306,6 @@ bayes_grid = RandomizedSearchCV(bayes_model, param_distributions = bayes_params,
 bayes_grid.fit(X_train, y_train)
 ```
 
-bayes_grid.fit(X_train, y_train)
 * **Naive Bayes**
   * Rationale: 
   * Chosen Hyper-Parameters:
